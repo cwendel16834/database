@@ -1,3 +1,5 @@
+Database
+
 Database::constructor 
 Description: Creates an empty database object. 
 
@@ -28,7 +30,7 @@ Return value: none
 
 
 
-vector<string> Database::listTable()
+vector<string>& Database::listTable()
 Description: Returns a list of all the table names in the database.
 
 Parameters: none
@@ -37,12 +39,12 @@ Return value: A vector of type string is returned with the names of all the tabl
 
 
 
-map<string, Table*> Database::getTables()
+map<string, Table*>& Database::getTables()
 Description: Returns all the tables in the database.
 
 Parameters: none
 
-Return value: A map<string, Table*> is returned with all the tables that are in the database.
+Return value: A map<string, Table*>& is returned with all the tables that are in the database.
 
 
 
