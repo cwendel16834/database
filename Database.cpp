@@ -1,31 +1,34 @@
 #include "Database.h"
 
-int addTable(string name, Table* table)
+int Database::addTable(string name, Table* table)
 {
 	return 0;
 }
 
-int dropTable(string name)
+int Database::dropTable(string name)
 {
 	return 0;
 }
 
-vector<string>& listTable()
+vector<string>& Database::listTable()
 {
-	return null;
+	vector<string> tables;
+	return tables;
 }
 
-map<string, Table*>& getTables()
+map<string, Table*>& Database::getTables()
 {
-	return null;
+	map<string, Table*> tables;
+	return tables;
 }
 
-Table* query(string select, Table* from, string whereName)
+Table* Database::query(string select, Table* from, string whereName)
 {
-	return null;
+	Table* table;
+	return table;
 }
 
-int deleteTuple(string select, Table* from, string whereName)
+int Database::deleteTuple(string select, Table* from, string whereName)
 {
 	return 0;
 }
