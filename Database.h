@@ -11,12 +11,12 @@ class Database
 {
 public:	
 	Database(){}
-	void addTable(string name, Table* table);
-	void dropTable(string name);
+	int addTable(string name, Table* table);
+	int dropTable(string name);
 	vector<string>& listTable();
 	map<string, Table*>& getTables();
 	Table* query(string select, Table* from, string whereName);
-	void deleteTuple(string select, Table* from, string whereName);
+	int deleteTuple(string select, Table* from, string whereName);
 	
 	
 private:
