@@ -9,24 +9,24 @@ Return Value: Database object
 
 
 
-void Database::addTable(string name, Table* table)
+int Database::addTable(string name, Table* table)
 Description: Takes a specified table and a name and adds that table to the database.
 
 Parameters: 
 name: name of table to add
 table: pointer to a table that is being added to database
 
-Return value: none
+Return value: returns 1 if successful and 0 if unsuccessful
 
 
 
-void Database::dropTable(string name)
+int Database::dropTable(string name)
 Description: Removes a specified table from the database.
 
 Parameters:
 name: name of table to remove
 
-Return value: none
+Return value: returns 1 if successful and 0 if unsuccessful
 
 
 
@@ -60,7 +60,7 @@ Return value: Returns a Table* that is the result of the query function.
 
 
 
-void deleteTuple(string select, Table* from, string where)
+int deleteTuple(string select, Table* from, string where)
 Description: Deletes the specified tuples from the table.
 
 Parameters:
@@ -68,7 +68,7 @@ select: a string list of which attribute names to keep, a null list means keep a
 from: the name of the table to delete the tuples from
 where: string to parse through that references the attributes
 
-Return value: none
+Return value: returns 1 if successful and 0 if unsuccessful
 
 
 

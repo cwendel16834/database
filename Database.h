@@ -15,8 +15,8 @@ public:
 	void dropTable(string name);
 	vector<string>& listTable();
 	map<string, Table*>& getTables();
-	Table* query(string select, Table* from, string where);
-	void deleteTuple(string select, Table* from, string where);
+	Table* query(string select, Table* from, string whereName);
+	void deleteTuple(string select, Table* from, string whereName);
 	
 	
 private:
