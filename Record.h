@@ -9,7 +9,7 @@ class Record {
 public:
 	Record(int numEntries);
 
-	int updateEntry(int entryNum, std::string data);
+	int updateEntry(int entryNum, string data);
 	string getEntry(int entryNum);
 
 private:
