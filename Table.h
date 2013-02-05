@@ -1,7 +1,7 @@
 #ifndef TABLE_H
 #define TABLE_H
 #include "Record.h"
-
+#include <vector>
 using namespace std;
 
 struct Entry
@@ -30,7 +30,7 @@ public:
     int addEntry(Entry newEntry);
     int deleteEntry(Entry oldEntry);
     int insertRecord(Record newRecord);
-    string getAttributes();
+    vector<string> getAttributes();
     int getSize();
 	int renameAttribute(string oldName, string newName);
 	Table& join(Table& table);
