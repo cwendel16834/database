@@ -129,7 +129,11 @@ newRecord: a record object that is to be inserted into the table
 Return Value: returns 0 if successful, 1 if unsuccessful
 _______________________________________________________________________________________
 
+<<<<<<< HEAD
 string Table::getAttributes()
+=======
+vector<string> Table::getAttributes()
+>>>>>>> origin/update
 Description: A function that returns a list of the attributes in the table
 
 Parameters: none
