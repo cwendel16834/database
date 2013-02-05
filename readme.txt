@@ -73,6 +73,78 @@ Table::TableIterator
 Description: An iterator type for traversing the records in a Table
 _______________________________________________________________________________________
 
+Entry{}
+Description: This is a structure to contain the name and attribute type of an entry
+
+Parameters:
+entryName: name of the attribute
+entryType: a string name of the type of the attribute 
+
+Return Value: a new Entry structure
+_______________________________________________________________________________________
+
+Table::Table()
+Description: empty constructor for a new Table
+
+Parameters: none 
+
+Return Value: Table Object
+_______________________________________________________________________________________
+
+Table::Table(Entry entries[])
+Description: This is a constructor that initializes a Table object populated with 
+entries designated by the user.
+
+Parameters:
+entries: an array of Entry structures that are the entries the Table is to be initialized with
+
+Return Value: a new Table object
+_______________________________________________________________________________________
+
+int Table::addEntry(Entry newEntry)
+Description
+This function adds a new entry to the table
+
+Parameters:
+newEntry: an Entry structure containing the name and type of the entry to be added
+
+Return Value: returns 0 if successful and 1 if unsuccessful
+_______________________________________________________________________________________
+
+int Table::deleteEntry(Entry oldEntry)
+Description: deletes an entry from the Table 
+
+Parameters: 
+oldEntry: an Entry object that has the name and type of the entry that is to be deleted
+
+Return Value: returns 0 if successful and 1 if unsuccessful
+_______________________________________________________________________________________
+
+int Table::insertRecord(Record newRecord)
+Description: inserts a new record into the table
+
+Parameters:
+newRecord: a record object that is to be inserted into the table
+
+Return Value: returns 0 if successful, 1 if unsuccessful
+_______________________________________________________________________________________
+
+string Table::getAttributes()
+Description: A function that returns a list of the attributes in the table
+
+Parameters: none
+
+Return Value: a string that lists the types of attributes in the table
+_______________________________________________________________________________________
+
+int Table::getSize()
+Description: A function that returns the size of the table
+
+Parameters: none 
+
+Return Value: an int value that is the total number of records in the table
+_______________________________________________________________________________________
+
 int Table::renameAttribute(string oldName, string newName);
 Description: Renames the specified attribute. Returns 0 if successful or 1 if there is an error.
 
