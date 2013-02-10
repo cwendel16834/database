@@ -15,8 +15,9 @@ int Table::deleteEntry(Entry oldEntry) {
 int Table::insertRecord(Record newRecord) {
 	return 0;
 }
-string Table::getAttributes() {
-	return "";
+vector<string> Table::getAttributes() {
+	vector<string> att;
+	return att;
 }
 int Table::getSize() {
 	return 0;
