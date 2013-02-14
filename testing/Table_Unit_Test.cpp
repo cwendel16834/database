@@ -596,28 +596,89 @@ BOOST_AUTO_TEST_CASE(Test35)
 //    Finds the maximum element for a given attribute and returns it as an 
 //    integer number.
 
+bool vectorContainsAttr(vector<Attribute> vect, string elem) {
+	//returns true if vect contains an attribute with name = elem
+
+	vector<Attribute>::iterator it = vect.begin();
+
+	while (it != vect.end()) {
+		if ( it->name == elem) return true;
+	}
+
+	return false;
+}
+
+//testing rename(string, string)
+
 BOOST_AUTO_TEST_CASE(Test36) 
 {
 	Table t1;
-	Attribute a1;
-	t1.Add(a1, "name");
+	t1.Add("name", "varchar(50)");
 	t1.Rename("name", "fullname");
-	vector<string> attributes = t1.GetAttributes();
-	BOOST_CHECK(attributes[0] == "fullname");
+	vector<Attribute> attributes = t1.GetAttributes();
+	string attrName = "fullname";
+	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
 BOOST_AUTO_TEST_CASE(Test37) 
 {
 	Table t1;
-	Attribute a1;
-	t1.Add(a1, "name");
+	t1.Add("name", "varchar(50)");
 	t1.Rename("name", "name");
-	vector<string> attributes = t1.GetAttributes();
-	BOOST_CHECK(attributes[0] == "name");
+	//should either rename to same or ignore
+	vector<Attribute> attributes = t1.GetAttributes();
+	string attrName = "name";
+	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
 BOOST_AUTO_TEST_CASE(Test38) 
 {
 	Table t1;
+	t1.Add("name", "varchar(50)");
+	int error = t1.Rename("name", "");
+	//should not allow rename to empty string
+	BOOST_CHECK(error == -1);
+}
+
+BOOST_AUTO_TEST_CASE(Test39) 
+{
+	Table t1;
+	t1.Add("name", "varchar(50)");
+	int error = t1.Rename("name", "");
+	//should not allow rename to empty string
+	//should still have old attribute
+	vector<Attribute> attributes = t1.GetAttributes();
+	string attrName = "name";
+	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
+}
+
+BOOST_AUTO_TEST_CASE(Test40) 
+{
+	Table t1;
+	t1.Add("name", "varchar(50)");
+	int error = t1.Rename("date", "birthday");
+	//should not allow rename to nonexistent attribute
+
+	BOOST_CHECK(error == -1);
+}
+
+BOOST_AUTO_TEST_CASE(Test41) 
+{
+	Table t1;
+	t1.Add("name", "varchar(50)");
+	int error = t1.Rename("date", "birthday");
+	//should not allow rename to to nonexistent attribute
+	//should still have old attribute
+	vector<Attribute> attributes = t1.GetAttributes();
+	string attrName = "name";
+	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
+}
+
+BOOST_AUTO_TEST_CASE(Test42) 
+{
+	Table t1, t2;
+	t1.Add("name", "varchar(50)");
+
+
 	BOOST_CHECK(false);
 }
