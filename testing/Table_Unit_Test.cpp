@@ -134,7 +134,6 @@ BOOST_AUTO_TEST_CASE(Test11)
 	BOOST_CHECK(t1.GetSize(t1)==3);
 }
 
-
 BOOST_AUTO_TEST_CASE(Test12)
 {
 	Table t1;
@@ -572,4 +571,53 @@ BOOST_AUTO_TEST_CASE(Test35)
                  
 }
 
+//void Rename(string _oldName, string _newName)
+//    Takes in two names (strings), the first is the current name. The 
+//    function changes the first name to be the new name, nothing is 
+//    returned in this function.
+//
+//  Table CrossJoin(Table table1, Table table2)
+//    Joins the two tables given as input and produces one table from them, 
+//    this table is returned as type Table.
+//
+//  int Sum(Attribute _attribute)
+//    Calculates the sum for a given attribute and returns the sum as 
+//    an integer number.
+//
+//  int Count(Attribute _attribute)
+//    Calculates the number of entries that are nonNULL for a given attribute
+//    and returns as an integer number.
+//
+//  int Min(Attribute _attribute)
+//    Finds the minimum element for a given attribute and returns it as an
+//    integer number.
+//
+//  int Max(Attribute _attribute)
+//    Finds the maximum element for a given attribute and returns it as an 
+//    integer number.
 
+BOOST_AUTO_TEST_CASE(Test36) 
+{
+	Table t1;
+	Attribute a1;
+	t1.Add(a1, "name");
+	t1.Rename("name", "fullname");
+	vector<string> attributes = t1.GetAttributes();
+	BOOST_CHECK(attributes[0] == "fullname");
+}
+
+BOOST_AUTO_TEST_CASE(Test37) 
+{
+	Table t1;
+	Attribute a1;
+	t1.Add(a1, "name");
+	t1.Rename("name", "name");
+	vector<string> attributes = t1.GetAttributes();
+	BOOST_CHECK(attributes[0] == "name");
+}
+
+BOOST_AUTO_TEST_CASE(Test38) 
+{
+	Table t1;
+	BOOST_CHECK(false);
+}
