@@ -631,6 +631,214 @@ BOOST_AUTO_TEST_CASE(CrossJoin3)
 	BOOST_CHECK(result.GetSize() == 4);
 }
 
+BOOST_AUTO_TEST_CASE(CrossJoin4) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+
+	t1.Add("name", vc50);
+	v1.push_back("john");
+	t1.Insert(Record(v1));
+
+	t2.Add("address", vc50);
+	v2.push_back("123 sesame street");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 1 row
+
+	BOOST_CHECK(result.GetSize() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin5) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+
+	t1.Add("name", vc50);
+	v1.push_back("john");
+	t1.Insert(Record(v1));
+
+	t2.Add("address", vc50);
+	v2.push_back("123 sesame street");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 2 attributes
+
+	BOOST_CHECK(result.GetAttributes().size() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin6) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+	
+	t1.Add("first", vc50);
+	t1.Add("last", vc50);
+	v1.push_back("john");
+	v1.push_back("doe");
+	t1.Insert(Record(v1));
+
+	t2.Add("address", vc50);
+	v2.push_back("123 sesame street");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 1 row
+
+	BOOST_CHECK(result.GetSize() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin7) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+	
+	t1.Add("first", vc50);
+	t1.Add("last", vc50);
+	v1.push_back("john");
+	v1.push_back("doe");
+	t1.Insert(Record(v1));
+
+	t2.Add("address", vc50);
+	v2.push_back("123 sesame street");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 3 attributes
+
+	BOOST_CHECK(result.GetAttributes().size() == 3);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin8) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+
+	//table1 with 2 rows and 1 column
+	t1.Add("name", vc50);
+	v1.push_back("john");
+	t1.Insert(Record(v1));
+	v1.clear();	
+	v1.push_back("jane");
+	t1.Insert(Record(v1));
+
+	//table2 with 2 rows and 1 column 
+	t2.Add("address", vc50);
+	v2.push_back("123 sesame street");
+	t2.Insert(Record(v2));
+	v2.clear();
+	v2.push_back("456 main street");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 4 rows
+
+	BOOST_CHECK(result.GetSize() == 4);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin9) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+
+	//table1 with 2 rows and 1 column
+	t1.Add("name", vc50);
+	v1.push_back("john");
+	t1.Insert(Record(v1));
+	v1.clear();	
+	v1.push_back("jane");
+	t1.Insert(Record(v1));
+
+	//table2 with 2 rows and 1 column 
+	t2.Add("address", vc50);
+	v2.push_back("123 sesame street");
+	t2.Insert(Record(v2));
+	v2.clear();
+	v2.push_back("456 main street");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 2 attributes
+
+	BOOST_CHECK(result.GetAttributes().size() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin10) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+
+	//table1 with 2 rows and 2 columns
+	t1.Add("first", vc50);
+	t1.Add("last", vc50);
+	v1.push_back("john");
+	v1.push_back("doe");
+	t1.Insert(Record(v1));
+	v1.clear();	
+	v1.push_back("jane");
+	v1.push_back("shmoe");
+	t1.Insert(Record(v1));
+
+	//table2 with 2 rows and 2 columns
+	t2.Add("address", vc50);
+	t2.Add("city", vc50);
+	v2.push_back("123 sesame street");
+	v2.push_back("houston");
+	t2.Insert(Record(v2));
+	v2.clear();
+	v2.push_back("456 main street");
+	v2.push_back("dallas");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 4 rows
+
+	BOOST_CHECK(result.GetSize() == 4);
+}
+
+BOOST_AUTO_TEST_CASE(CrossJoin11) 
+{
+	Table t1, t2, t3;
+	vector<string> v1, v2;
+
+	//table1 with 2 rows and 2 columns
+	t1.Add("first", vc50);
+	t1.Add("last", vc50);
+	v1.push_back("john");
+	v1.push_back("doe");
+	t1.Insert(Record(v1));
+	v1.clear();	
+	v1.push_back("jane");
+	v1.push_back("shmoe");
+	t1.Insert(Record(v1));
+
+	//table2 with 2 rows and 2 columns
+	t2.Add("address", vc50);
+	t2.Add("city", vc50);
+	v2.push_back("123 sesame street");
+	v2.push_back("houston");
+	t2.Insert(Record(v2));
+	v2.clear();
+	v2.push_back("456 main street");
+	v2.push_back("dallas");
+	t2.Insert(Record(v2));
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 4 attributes
+
+	BOOST_CHECK(result.GetAttributes().size() == 4);
+}
+
 //testing sum(string)
 
 BOOST_AUTO_TEST_CASE(Sum1) 
