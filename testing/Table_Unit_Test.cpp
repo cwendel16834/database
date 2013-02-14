@@ -568,7 +568,7 @@ BOOST_AUTO_TEST_CASE(Rename6)
 
 //testing CrossJoin
 
-BOOST_AUTO_TEST_CASE(Test42) 
+BOOST_AUTO_TEST_CASE(CrossJoin1) 
 {
 	Table t1, t2, t3;
 	t1.Add("name", vc50);
@@ -586,7 +586,7 @@ BOOST_AUTO_TEST_CASE(Test42)
 	BOOST_CHECK(result.GetAttributes().size() == 6);
 }
 
-BOOST_AUTO_TEST_CASE(Test43) 
+BOOST_AUTO_TEST_CASE(CrossJoin2) 
 {
 	Table t1, t2, t3;
 	t1.Add("name", vc50);
@@ -604,7 +604,7 @@ BOOST_AUTO_TEST_CASE(Test43)
 	BOOST_CHECK(result.GetSize() == 0);
 }
 
-BOOST_AUTO_TEST_CASE(Test44) 
+BOOST_AUTO_TEST_CASE(CrossJoin3) 
 {
 	Table t1, t2, t3;
 	t1.Add("name", vc50);
@@ -633,7 +633,7 @@ BOOST_AUTO_TEST_CASE(Test44)
 
 //testing sum(string)
 
-BOOST_AUTO_TEST_CASE(Test50) 
+BOOST_AUTO_TEST_CASE(Sum1) 
 {
 	Table t1, t2, t3;
 	t1.Add("name", vc50);
