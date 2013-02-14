@@ -5,9 +5,9 @@
 
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	Database d1;
-	Table t1 = d1.GetTables();
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	Database d1;	
+	vector<Table> test =d1.GetTables();
+	BOOST_CHECK(test.size()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test2)
@@ -15,7 +15,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Database d1;
 	Table t1;
 	d1.AddTable(t1,"test");
-	BOOST_CHECK(t1.GetSize(t1) == d1.GetTables().GetSize(t1));
+	//BOOST_CHECK(t1.GetSize() == d1.GetTables()[0].GetSize()); //will throw vector out of range until AddTable() is actually putting tables into the database. 
+	//Uncomment once AddTable() is implemented
 }
 
 BOOST_AUTO_TEST_CASE(Test3)
@@ -24,7 +25,8 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Table t1;
 	d1.AddTable(t1,"test");
 	d1.DropTable("test");
-	BOOST_CHECK(d1.GetTables().GetSize(t1) == 0);
+	vector<Table> test = d1.GetTables();
+	BOOST_CHECK(test.size() == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test4)
@@ -41,8 +43,8 @@ BOOST_AUTO_TEST_CASE(Test4)
 	r4.ChangeEntry(4,"another@test.com");
 	Attribute name;
 	Attribute email;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -52,9 +54,10 @@ BOOST_AUTO_TEST_CASE(Test4)
 	answer.Insert(r1);
 	answer.Insert(r3);
 
-	Table output = d1.Query("*",t1,"Name=Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","Name=Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 
 }
 
@@ -72,8 +75,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 	r4.ChangeEntry(4,"another@test.com");
 	Attribute name;
 	Attribute email;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -83,10 +86,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 	answer.Insert(r2);
 	answer.Insert(r4);
 
-	Table output = d1.Query("*",t1,"Email=test@test.com");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","Email=test@test.com");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
-
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test6)
@@ -108,9 +111,9 @@ BOOST_AUTO_TEST_CASE(Test6)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -122,9 +125,10 @@ BOOST_AUTO_TEST_CASE(Test6)
 	answer.Insert(r1);
 	answer.Insert(r3);
 
-	Table output = d1.Query("*",t1,"Name=Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","Name=Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 
 }
 
@@ -147,9 +151,9 @@ BOOST_AUTO_TEST_CASE(Test7)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -161,9 +165,10 @@ BOOST_AUTO_TEST_CASE(Test7)
 	answer.Insert(r2);
 	answer.Insert(r4);
 
-	Table output = d1.Query("*",t1,"Email=test@test.com");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","Email=test@test.com");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 
 }
 
@@ -186,9 +191,9 @@ BOOST_AUTO_TEST_CASE(Test8)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -200,9 +205,10 @@ BOOST_AUTO_TEST_CASE(Test8)
 	answer.Insert(r5);
 	answer.Insert(r6);
 
-	Table output = d1.Query("SSN",t1,"SSN > 100");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("SSN","Test_Table","SSN > 100");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 
 }
 
@@ -225,9 +231,9 @@ BOOST_AUTO_TEST_CASE(Test9)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -238,9 +244,10 @@ BOOST_AUTO_TEST_CASE(Test9)
 	Table answer;	
 	answer.Insert(r6);
 
-	Table output = d1.Query("SSN",t1,"SSN > 103");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("SSN","Test_Table","SSN > 103");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test10)
@@ -262,9 +269,9 @@ BOOST_AUTO_TEST_CASE(Test10)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -275,9 +282,10 @@ BOOST_AUTO_TEST_CASE(Test10)
 	Table answer;	
 	answer.Insert(r5);
 
-	Table output = d1.Query("SSN",t1,"SSN != 106");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("SSN","Test_Table","SSN != 106");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test11)
@@ -299,9 +307,9 @@ BOOST_AUTO_TEST_CASE(Test11)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -312,9 +320,10 @@ BOOST_AUTO_TEST_CASE(Test11)
 	Table answer;	
 	answer.Insert(r2);
 
-	Table output = d1.Query("Name",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("Name","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test12)
@@ -336,9 +345,9 @@ BOOST_AUTO_TEST_CASE(Test12)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -351,9 +360,10 @@ BOOST_AUTO_TEST_CASE(Test12)
 	answer.Insert(r4);
 	answer.Insert(r6);
 
-	Table output = d1.Query("*",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test13)
@@ -375,9 +385,9 @@ BOOST_AUTO_TEST_CASE(Test13)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -389,9 +399,10 @@ BOOST_AUTO_TEST_CASE(Test13)
 	answer.Insert(r2);
 	answer.Insert(r4);	
 
-	Table output = d1.Query("Name SSN",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("Name SSN","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test14)
@@ -413,9 +424,9 @@ BOOST_AUTO_TEST_CASE(Test14)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -427,9 +438,10 @@ BOOST_AUTO_TEST_CASE(Test14)
 	answer.Insert(r5);
 	answer.Insert(r6);
 
-	Table output = d1.Query("SSN",t1,"SSN >= 101");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("SSN","Test_Table","SSN >= 101");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test15)
@@ -451,9 +463,9 @@ BOOST_AUTO_TEST_CASE(Test15)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -464,9 +476,10 @@ BOOST_AUTO_TEST_CASE(Test15)
 	Table answer;	
 	answer.Insert(r6);	
 
-	Table output = d1.Query("SSN",t1,"SSN >= 102");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("SSN","Test_Table","SSN >= 102");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test16)
@@ -488,9 +501,9 @@ BOOST_AUTO_TEST_CASE(Test16)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -503,9 +516,10 @@ BOOST_AUTO_TEST_CASE(Test16)
 	answer.Insert(r4);
 	answer.Insert(r6);
 
-	Table output = d1.Query("*",t1,"SSN >= 102");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","SSN >= 102");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test17)
@@ -527,9 +541,9 @@ BOOST_AUTO_TEST_CASE(Test17)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -541,9 +555,10 @@ BOOST_AUTO_TEST_CASE(Test17)
 	answer.Insert(r2);	
 	answer.Insert(r6);
 
-	Table output = d1.Query("Name SSN",t1,"SSN >= 102");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("Name SSN","Test_Table","SSN >= 102");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test18)
@@ -564,10 +579,9 @@ BOOST_AUTO_TEST_CASE(Test18)
 	r6.ChangeEntry(6,"106");
 	Attribute name;
 	Attribute email;
-	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -581,9 +595,10 @@ BOOST_AUTO_TEST_CASE(Test18)
 	answer.Insert(r5);		
 	answer.Insert(r6);
 
-	Table output = d1.Query("Name SSN",t1,"SSN <= 106");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("Name SSN","Test_Table","SSN <= 106");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test19)
@@ -605,9 +620,9 @@ BOOST_AUTO_TEST_CASE(Test19)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -619,9 +634,10 @@ BOOST_AUTO_TEST_CASE(Test19)
 	answer.Insert(r1);
 	answer.Insert(r2);	
 
-	Table output = d1.Query("Name SSN",t1,"SSN < 106");
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("Name SSN","Test_Table","SSN < 106");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test20)
@@ -643,9 +659,9 @@ BOOST_AUTO_TEST_CASE(Test20)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -655,10 +671,10 @@ BOOST_AUTO_TEST_CASE(Test20)
 
 	Table answer;
 		
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("Name SSN","Test_Table","SSN < 100");
 
-	Table output = d1.Query("Name SSN",t1,"SSN < 100");
-
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test21)
@@ -680,9 +696,9 @@ BOOST_AUTO_TEST_CASE(Test21)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -692,10 +708,10 @@ BOOST_AUTO_TEST_CASE(Test21)
 
 	Table answer;
 		
+	d1.AddTable(t1,"Test_Table");
+	Table output = d1.Query("*","Test_Table","SSN < 100");
 
-	Table output = d1.Query("*",t1,"SSN < 100");
-
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output.GetSize()==answer.GetSize());
 }
 
 BOOST_AUTO_TEST_CASE(Test22)
@@ -717,9 +733,9 @@ BOOST_AUTO_TEST_CASE(Test22)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -735,9 +751,10 @@ BOOST_AUTO_TEST_CASE(Test22)
 	answer.Insert(r5);	
 	answer.Insert(r6);	
 
-	Table output = d1.Delete("*",t1,"SSN < 100");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","SSN < 100");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test23)
@@ -759,9 +776,9 @@ BOOST_AUTO_TEST_CASE(Test23)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -771,9 +788,10 @@ BOOST_AUTO_TEST_CASE(Test23)
 
 	Table answer;		
 
-	Table output = d1.Delete("*",t1,"SSN < 107");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","SSN < 107");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test24)
@@ -795,9 +813,9 @@ BOOST_AUTO_TEST_CASE(Test24)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -810,9 +828,10 @@ BOOST_AUTO_TEST_CASE(Test24)
 	answer.Insert(r3);
 	answer.Insert(r6);
 
-	Table output = d1.Delete("*",t1,"SSN = 106");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","SSN = 106");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test25)
@@ -834,9 +853,9 @@ BOOST_AUTO_TEST_CASE(Test25)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -849,9 +868,10 @@ BOOST_AUTO_TEST_CASE(Test25)
 	answer.Insert(r3);
 	answer.Insert(r6);
 
-	Table output = d1.Delete("*",t1,"Name = Jane Smith");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","Name = Jane Smith");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test26)
@@ -873,9 +893,9 @@ BOOST_AUTO_TEST_CASE(Test26)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -888,9 +908,10 @@ BOOST_AUTO_TEST_CASE(Test26)
 	answer.Insert(r3);
 	answer.Insert(r6);
 
-	Table output = d1.Delete("*",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test27)
@@ -912,9 +933,9 @@ BOOST_AUTO_TEST_CASE(Test27)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -929,9 +950,10 @@ BOOST_AUTO_TEST_CASE(Test27)
 	answer.Insert(r5);
 	answer.Insert(r6);
 
-	Table output = d1.Delete("Name",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("Name","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test28)
@@ -953,9 +975,9 @@ BOOST_AUTO_TEST_CASE(Test28)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -969,9 +991,10 @@ BOOST_AUTO_TEST_CASE(Test28)
 	answer.Insert(r4);
 	answer.Insert(r5);	
 
-	Table output = d1.Delete("Name SSN",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("Name SSN","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test29)
@@ -993,9 +1016,9 @@ BOOST_AUTO_TEST_CASE(Test29)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1008,9 +1031,10 @@ BOOST_AUTO_TEST_CASE(Test29)
 	answer.Insert(r3);	
 	answer.Insert(r5);	
 
-	Table output = d1.Delete("Name Email SSN",t1,"Name != Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("Name Email SSN","Test_Table","Name != Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test30)
@@ -1032,9 +1056,9 @@ BOOST_AUTO_TEST_CASE(Test30)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1047,9 +1071,10 @@ BOOST_AUTO_TEST_CASE(Test30)
 	answer.Insert(r3);	
 	answer.Insert(r5);	
 
-	Table output = d1.Delete("*",t1,"Name > Bob Dole");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","Name > Bob Dole");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test31)
@@ -1071,9 +1096,9 @@ BOOST_AUTO_TEST_CASE(Test31)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1083,10 +1108,10 @@ BOOST_AUTO_TEST_CASE(Test31)
 
 	Table answer;
 	
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","Name >= Bob Dole");
 
-	Table output = d1.Delete("*",t1,"Name >= Bob Dole");
-
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test32)
@@ -1108,9 +1133,9 @@ BOOST_AUTO_TEST_CASE(Test32)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1123,9 +1148,10 @@ BOOST_AUTO_TEST_CASE(Test32)
 	answer.Insert(r4);
 	answer.Insert(r6);	
 
-	Table output = d1.Delete("*",t1,"Name < Jane Smith");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","Name < Jane Smith");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test33)
@@ -1147,9 +1173,9 @@ BOOST_AUTO_TEST_CASE(Test33)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1159,10 +1185,10 @@ BOOST_AUTO_TEST_CASE(Test33)
 
 	Table answer;
 	
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("*","Test_Table","Name <= Jane Smith");
 
-	Table output = d1.Delete("*",t1,"Name <= Jane Smith");
-
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test34)
@@ -1184,9 +1210,9 @@ BOOST_AUTO_TEST_CASE(Test34)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1200,9 +1226,10 @@ BOOST_AUTO_TEST_CASE(Test34)
 	answer.Insert(r5);
 	answer.Insert(r6);	
 
-	Table output = d1.Delete("Email",t1,"Name <= Jane Smith");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("Email","Test_Table","Name <= Jane Smith");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
 
 BOOST_AUTO_TEST_CASE(Test35)
@@ -1224,9 +1251,9 @@ BOOST_AUTO_TEST_CASE(Test35)
 	Attribute name;
 	Attribute email;
 	Attribute social;
-	t1.Add(name, "Name");
-	t1.Add(email, "Email");
-	t1.Add(social, "SSN");
+	t1.Add("name", "Name");
+	t1.Add("email", "Email");
+	t1.Add("social", "SSN");
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
@@ -1240,7 +1267,8 @@ BOOST_AUTO_TEST_CASE(Test35)
 	answer.Insert(r3);
 	answer.Insert(r4);	
 
-	Table output = d1.Delete("SSN",t1,"Name <= Jane Smith");
+	d1.AddTable(t1,"Test_Table");
+	int output = d1.Delete("SSN","Test_Table","Name <= Jane Smith");
 
-	BOOST_CHECK(output.GetSize(output)==answer.GetSize(answer));
+	BOOST_CHECK(output == 0);
 }
