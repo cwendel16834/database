@@ -5,7 +5,7 @@
 
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	Table t1;
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	Record r1;
+	BOOST_CHECK(false);
 }
 

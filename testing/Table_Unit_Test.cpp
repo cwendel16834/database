@@ -573,37 +573,12 @@ BOOST_AUTO_TEST_CASE(Test35)
                  
 }
 
-//void Rename(string _oldName, string _newName)
-//    Takes in two names (strings), the first is the current name. The 
-//    function changes the first name to be the new name, nothing is 
-//    returned in this function.
-//
-//  Table CrossJoin(Table table1, Table table2)
-//    Joins the two tables given as input and produces one table from them, 
-//    this table is returned as type Table.
-//
-//  int Sum(Attribute _attribute)
-//    Calculates the sum for a given attribute and returns the sum as 
-//    an integer number.
-//
-//  int Count(Attribute _attribute)
-//    Calculates the number of entries that are nonNULL for a given attribute
-//    and returns as an integer number.
-//
-//  int Min(Attribute _attribute)
-//    Finds the minimum element for a given attribute and returns it as an
-//    integer number.
-//
-//  int Max(Attribute _attribute)
-//    Finds the maximum element for a given attribute and returns it as an 
-//    integer number.
-
 //testing rename(string, string)
 
 BOOST_AUTO_TEST_CASE(Test36) 
 {
 	Table t1;
-	t1.Add("name", "varchar(50)");
+	t1.Add("name", vc50);
 	t1.Rename("name", "fullname");
 	vector<Attribute> attributes = t1.GetAttributes();
 	string attrName = "fullname";
@@ -613,7 +588,7 @@ BOOST_AUTO_TEST_CASE(Test36)
 BOOST_AUTO_TEST_CASE(Test37) 
 {
 	Table t1;
-	t1.Add("name", "varchar(50)");
+	t1.Add("name", vc50);
 	t1.Rename("name", "name");
 	//should either rename to same or ignore
 	vector<Attribute> attributes = t1.GetAttributes();
@@ -624,7 +599,7 @@ BOOST_AUTO_TEST_CASE(Test37)
 BOOST_AUTO_TEST_CASE(Test38) 
 {
 	Table t1;
-	t1.Add("name", "varchar(50)");
+	t1.Add("name", vc50);
 	int error = t1.Rename("name", "");
 	//should not allow rename to empty string
 	BOOST_CHECK(error == -1);
@@ -633,7 +608,7 @@ BOOST_AUTO_TEST_CASE(Test38)
 BOOST_AUTO_TEST_CASE(Test39) 
 {
 	Table t1;
-	t1.Add("name", "varchar(50)");
+	t1.Add("name", vc50);
 	int error = t1.Rename("name", "");
 	//should not allow rename to empty string
 	//should still have old attribute
@@ -645,7 +620,7 @@ BOOST_AUTO_TEST_CASE(Test39)
 BOOST_AUTO_TEST_CASE(Test40) 
 {
 	Table t1;
-	t1.Add("name", "varchar(50)");
+	t1.Add("name", vc50);
 	int error = t1.Rename("date", "birthday");
 	//should not allow rename to nonexistent attribute
 
@@ -655,7 +630,7 @@ BOOST_AUTO_TEST_CASE(Test40)
 BOOST_AUTO_TEST_CASE(Test41) 
 {
 	Table t1;
-	t1.Add("name", "varchar(50)");
+	t1.Add("name", vc50);
 	int error = t1.Rename("date", "birthday");
 	//should not allow rename to to nonexistent attribute
 	//should still have old attribute
@@ -664,11 +639,84 @@ BOOST_AUTO_TEST_CASE(Test41)
 	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
+//testing CrossJoin
+
 BOOST_AUTO_TEST_CASE(Test42) 
 {
-	Table t1, t2;
-	t1.Add("name", "varchar(50)");
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
 
+	t2.Add("dog", vc50);
+	t2.Add("cat", vc50);
+	t2.Add("fish", vc50);
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain all attributes
+
+	BOOST_CHECK(result.GetAttributes().size() == 6);
+}
+
+BOOST_AUTO_TEST_CASE(Test43) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+
+	t2.Add("dog", vc50);
+	t2.Add("cat", vc50);
+	t2.Add("fish", vc50);
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain no rows
+
+	BOOST_CHECK(result.GetSize() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Test44) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+	
+	
+	t1.Insert(Record());
+	t1.Insert(Record());
+
+	t2.Add("dog", vc50);
+	t2.Add("cat", vc50);
+	t2.Add("fish", vc50);
+
+	t2.Insert(Record());
+	t2.Insert(Record());
+	t2.Insert(Record());
+	t2.Insert(Record());
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 8 rows
+
+	BOOST_CHECK(result.GetSize() == 4);
+}
+
+//testing sum(string)
+
+BOOST_AUTO_TEST_CASE(Test50) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+	
+	
+	t1.Insert(Record());
+	t1.Insert(Record());
+		
 
 	BOOST_CHECK(false);
 }
