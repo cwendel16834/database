@@ -566,12 +566,84 @@ BOOST_AUTO_TEST_CASE(Rename6)
 	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
-BOOST_AUTO_TEST_CASE(name) 
-{
-	Table t1, t2;
-	t1.Add("name", "varchar(50)");
+//testing CrossJoin
 
+BOOST_AUTO_TEST_CASE(Test42) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+
+	t2.Add("dog", vc50);
+	t2.Add("cat", vc50);
+	t2.Add("fish", vc50);
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain all attributes
+
+	BOOST_CHECK(result.GetAttributes().size() == 6);
+}
+
+BOOST_AUTO_TEST_CASE(Test43) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+
+	t2.Add("dog", vc50);
+	t2.Add("cat", vc50);
+	t2.Add("fish", vc50);
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain no rows
+
+	BOOST_CHECK(result.GetSize() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Test44) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+	
+	
+	t1.Insert(Record());
+	t1.Insert(Record());
+
+	t2.Add("dog", vc50);
+	t2.Add("cat", vc50);
+	t2.Add("fish", vc50);
+
+	t2.Insert(Record());
+	t2.Insert(Record());
+	t2.Insert(Record());
+	t2.Insert(Record());
+
+	Table result = t3.CrossJoin(t1, t2);
+
+	//result should contain 8 rows
+
+	BOOST_CHECK(result.GetSize() == 4);
+}
+
+//testing sum(string)
+
+BOOST_AUTO_TEST_CASE(Test50) 
+{
+	Table t1, t2, t3;
+	t1.Add("name", vc50);
+	t1.Add("email", vc50);
+	t1.Add("username", vc50);
+	
+	
+	t1.Insert(Record());
+	t1.Insert(Record());
+		
 
 	BOOST_CHECK(false);
-
 }
