@@ -500,31 +500,6 @@ BOOST_AUTO_TEST_CASE(Test35)
                  
 }
 
-//void Rename(string _oldName, string _newName)
-//    Takes in two names (strings), the first is the current name. The 
-//    function changes the first name to be the new name, nothing is 
-//    returned in this function.
-//
-//  Table CrossJoin(Table table1, Table table2)
-//    Joins the two tables given as input and produces one table from them, 
-//    this table is returned as type Table.
-//
-//  int Sum(Attribute _attribute)
-//    Calculates the sum for a given attribute and returns the sum as 
-//    an integer number.
-//
-//  int Count(Attribute _attribute)
-//    Calculates the number of entries that are nonNULL for a given attribute
-//    and returns as an integer number.
-//
-//  int Min(Attribute _attribute)
-//    Finds the minimum element for a given attribute and returns it as an
-//    integer number.
-//
-//  int Max(Attribute _attribute)
-//    Finds the maximum element for a given attribute and returns it as an 
-//    integer number.
-
 //testing rename(string, string)
 
 BOOST_AUTO_TEST_CASE(Test36) 
