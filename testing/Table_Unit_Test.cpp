@@ -500,9 +500,9 @@ BOOST_AUTO_TEST_CASE(Test35)
                  
 }
 
-//testing rename(string, string)
+//testing Rename(string, string)
 
-BOOST_AUTO_TEST_CASE(Test36) 
+BOOST_AUTO_TEST_CASE(Rename1) 
 {
 	Table t1;
 	t1.Add("name", "varchar(50)");
@@ -512,7 +512,7 @@ BOOST_AUTO_TEST_CASE(Test36)
 	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
-BOOST_AUTO_TEST_CASE(Test37) 
+BOOST_AUTO_TEST_CASE(Rename2) 
 {
 	Table t1;
 	t1.Add("name", "varchar(50)");
@@ -523,7 +523,7 @@ BOOST_AUTO_TEST_CASE(Test37)
 	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
-BOOST_AUTO_TEST_CASE(Test38) 
+BOOST_AUTO_TEST_CASE(Rename3) 
 {
 	Table t1;
 	t1.Add("name", "varchar(50)");
@@ -532,7 +532,7 @@ BOOST_AUTO_TEST_CASE(Test38)
 	BOOST_CHECK(error == -1);
 }
 
-BOOST_AUTO_TEST_CASE(Test39) 
+BOOST_AUTO_TEST_CASE(Rename4) 
 {
 	Table t1;
 	t1.Add("name", "varchar(50)");
@@ -544,7 +544,7 @@ BOOST_AUTO_TEST_CASE(Test39)
 	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
-BOOST_AUTO_TEST_CASE(Test40) 
+BOOST_AUTO_TEST_CASE(Rename5) 
 {
 	Table t1;
 	t1.Add("name", "varchar(50)");
@@ -554,7 +554,7 @@ BOOST_AUTO_TEST_CASE(Test40)
 	BOOST_CHECK(error == -1);
 }
 
-BOOST_AUTO_TEST_CASE(Test41) 
+BOOST_AUTO_TEST_CASE(Rename6) 
 {
 	Table t1;
 	t1.Add("name", "varchar(50)");
@@ -566,7 +566,7 @@ BOOST_AUTO_TEST_CASE(Test41)
 	BOOST_CHECK(vectorContainsAttr(attributes, attrName));
 }
 
-BOOST_AUTO_TEST_CASE(Test42) 
+BOOST_AUTO_TEST_CASE(name) 
 {
 	Table t1, t2;
 	t1.Add("name", "varchar(50)");
