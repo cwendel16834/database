@@ -3,55 +3,62 @@
 #include <boost/test/unit_test.hpp>
 #include "Table.h"
 
+string vc50 = "varchar(50)";
+
+bool vectorContainsAttr(vector<Attribute> vect, string elem) {
+	//returns true if vect contains an attribute with name = elem
+
+	vector<Attribute>::iterator it = vect.begin();
+
+	while (it != vect.end()) {
+		if ( it->name == elem) return true;
+	}
+
+	return false;
+}
+
 BOOST_AUTO_TEST_CASE(Test1)
 {
 	Table t1;
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test2)
 {
 	Table t1;
-	Attribute a;
 	string type = "type";
-	t1.Add(a,type);
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	t1.Add(type, vc50);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test3)
 {
 	Table t1;
-	Attribute a;
-	Attribute b;
-	Attribute c;
 	string typeA = "typeA";
 	string typeB = "typeB";
 	string typeC = "typeC";
-	t1.Add(a,typeA);
-	t1.Add(b,typeB);
-	t1.Add(c,typeC);
+	t1.Add(typeA, vc50);
+	t1.Add(typeB, vc50);
+	t1.Add(typeC, vc50);
 	t1.Delete("a");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test4)
 {
 	Table t1;
-	Attribute a;
-	Attribute b;
-	t1.Add(a,"typeA");
-	t1.Add(b,"typeB");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	t1.Add("typeA", vc50);
+	t1.Add("typeB", vc50);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test5)
 {
 	Table t1;
-	Attribute a;
 	string type;
-	t1.Add(a,type);
+	t1.Add(type, vc50);
 	t1.Delete("a");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test6)
@@ -59,9 +66,9 @@ BOOST_AUTO_TEST_CASE(Test6)
 	Table t1;
 	Attribute a;
 	string type;
-	t1.Add(a,type);
+	t1.Add(type, vc50);
 	t1.Delete("a");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test7)
@@ -69,9 +76,9 @@ BOOST_AUTO_TEST_CASE(Test7)
 	Table t1;
 	Attribute a;
 	string type;
-	t1.Add(a,type);
+	t1.Add(type, vc50);
 	t1.Delete("a");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test8)
@@ -79,7 +86,7 @@ BOOST_AUTO_TEST_CASE(Test8)
 	Table t1;
 	Record r;
 	t1.Insert(r);
-	BOOST_CHECK(t1.GetSize(t1)==1);
+	BOOST_CHECK(t1.GetSize()==1);
 }
 
 BOOST_AUTO_TEST_CASE(Test9)
@@ -97,7 +104,7 @@ BOOST_AUTO_TEST_CASE(Test9)
 	t1.Insert(r4);
 	t1.Insert(r5);
 	t1.Insert(r6);
-	BOOST_CHECK(t1.GetSize(t1)==6);
+	BOOST_CHECK(t1.GetSize()==6);
 }
 
 BOOST_AUTO_TEST_CASE(Test10)
@@ -112,7 +119,7 @@ BOOST_AUTO_TEST_CASE(Test10)
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
-	BOOST_CHECK(t1.GetSize(t1)==3);
+	BOOST_CHECK(t1.GetSize()==3);
 }
 
 BOOST_AUTO_TEST_CASE(Test11)
@@ -124,14 +131,12 @@ BOOST_AUTO_TEST_CASE(Test11)
 	Record r4;
 	Record r5;
 	Record r6;
-	Attribute a1;
-	Attribute a2;
-	t1.Add(a1, "NAME");
-	t1.Add(a1, "ADDRESS");
+	t1.Add("NAME", vc50);
+	t1.Add("ADDRESS", vc50);
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
-	BOOST_CHECK(t1.GetSize(t1)==3);
+	BOOST_CHECK(t1.GetSize()==3);
 }
 
 BOOST_AUTO_TEST_CASE(Test12)
@@ -143,16 +148,13 @@ BOOST_AUTO_TEST_CASE(Test12)
 	Record r4;
 	Record r5;
 	Record r6;
-	Attribute a1;
-	Attribute a2;
-    Attribute a3;	
-	t1.Add(a1, "NAME");
-	t1.Add(a1, "ADDRESS");
-	t1.Add(a1, "PHONE");
+	t1.Add("NAME",vc50);
+	t1.Add("ADDRESS", vc50);
+	t1.Add("PHONE", vc50);
 	t1.Insert(r1);
 	t1.Insert(r2);
 	t1.Insert(r3);
-	BOOST_CHECK(t1.GetSize(t1)==3);
+	BOOST_CHECK(t1.GetSize()==3);
 }
 
 BOOST_AUTO_TEST_CASE(Test13)
@@ -164,11 +166,11 @@ BOOST_AUTO_TEST_CASE(Test13)
 	Attribute a1;
 	Attribute a2;
     Attribute a3;	
-	t1.Add(a1, "NAME");
-	t1.Add(a1, "ADDRESS");
-	t1.Add(a1, "PHONE");
+	t1.Add("NAME", vc50);
+	t1.Add("ADDRESS", vc50);
+	t1.Add("PHONE", vc50);
 	t1.Rename("PHONE", "PHONE NUMBER");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test14)
@@ -181,7 +183,7 @@ BOOST_AUTO_TEST_CASE(Test14)
    atts.push_back(a2);
    atts.push_back(a3);
    Table t1(atts, "NAME,DOB,PHONE");
-   BOOST_CHECK(t1.GetSize(t1)==0);
+   BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test15)
@@ -194,8 +196,8 @@ BOOST_AUTO_TEST_CASE(Test15)
    atts.push_back(a2);
    atts.push_back(a3);
    Table t1(atts, "NAME,DOB,PHONE");
-   t1.GetAttributes(t1);
-   BOOST_CHECK(t1.GetSize(t1)==0);
+   t1.GetAttributes();
+   BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test16)
@@ -209,8 +211,8 @@ BOOST_AUTO_TEST_CASE(Test16)
    atts.push_back(a3);
    Table t1(atts, "NAME,DOB,PHONE");
    t1.Rename("NAME", "FULLNAME");
-   t1.GetAttributes(t1);
-   BOOST_CHECK(t1.GetSize(t1)==0);
+   t1.GetAttributes();
+   BOOST_CHECK(t1.GetSize()==0);
                             
 }
 
@@ -226,10 +228,10 @@ BOOST_AUTO_TEST_CASE(Test17)
    atts.push_back(a2);
    atts.push_back(a3);
    Table t1(atts, "NAME,DOB,PHONE");
-   t1.Add(a4, "ADDRESS");
-   t1.GetAttributes(t1);
+   t1.Add("ADDRESS", vc50);
+   t1.GetAttributes();
    t1.Insert(r1);
-   BOOST_CHECK(t1.GetSize(t1)==1);
+   BOOST_CHECK(t1.GetSize()==1);
 }
 
 BOOST_AUTO_TEST_CASE(Test18)
@@ -245,8 +247,8 @@ BOOST_AUTO_TEST_CASE(Test18)
    atts.push_back(a3);
    Table t1(atts, "NAME,DOB,PHONE");
    t1.Delete("NAME");
-   t1.GetAttributes(t1);
-   BOOST_CHECK(t1.GetSize(t1)==0);
+   t1.GetAttributes();
+   BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test19)
@@ -264,7 +266,7 @@ BOOST_AUTO_TEST_CASE(Test19)
   t1.Insert(r1);
   t1.Add(a3, "DOB");
   t1.GetAttributes(t1);
-  BOOST_CHECK(t1.GetSize(t1)==1);
+  BOOST_CHECK(t1.GetSize()==1);
 }
 
 BOOST_AUTO_TEST_CASE(Test20)
@@ -284,7 +286,7 @@ BOOST_AUTO_TEST_CASE(Test20)
   t1.Add(a3, name5);
   t1.Insert(r1);
   t1.GetAttributes(t1);
-  BOOST_CHECK(t1.GetSize(t1)==1);
+  BOOST_CHECK(t1.GetSize()==1);
 }
 
 BOOST_AUTO_TEST_CASE(Test21)
@@ -305,7 +307,7 @@ BOOST_AUTO_TEST_CASE(Test21)
   t1.Insert(r1);
   t1.Rename("ssn", "SSN");
   t1.GetAttributes(t1);
-  BOOST_CHECK(t1.GetSize(t1)==1);
+  BOOST_CHECK(t1.GetSize()==1);
 }
 
 BOOST_AUTO_TEST_CASE(Test22)
@@ -328,7 +330,7 @@ BOOST_AUTO_TEST_CASE(Test22)
   t1.Rename("NAME", "MAIDEN  NAME");
   t1.Rename("DOB", "DATE OF BIRTH");
   t1.GetAttributes(t1);
-  BOOST_CHECK(t1.GetSize(t1)==1);
+  BOOST_CHECK(t1.GetSize()==1);
 }
 
 BOOST_AUTO_TEST_CASE(Test23)
@@ -364,7 +366,7 @@ BOOST_AUTO_TEST_CASE(Test23)
   t1.Delete("ssn");
   t1.Delete("ADDRESS");
   t1.GetAttributes(t1);
-  BOOST_CHECK(t1.GetSize(t1)==0); 
+  BOOST_CHECK(t1.GetSize()==0); 
 }
 
 BOOST_AUTO_TEST_CASE(Test24)
@@ -376,7 +378,7 @@ BOOST_AUTO_TEST_CASE(Test24)
 	Record r1;
 	t1.Insert(r1);
 	t1.Delete("NAME");
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test25)
@@ -387,7 +389,7 @@ BOOST_AUTO_TEST_CASE(Test25)
 	t1.Add(a,type);
 	t1.Rename(type, "SURNAME");
 	t1.GetAttributes(t1);
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test26)
@@ -404,7 +406,7 @@ BOOST_AUTO_TEST_CASE(Test26)
 	t1.Insert(r);
 	t1.Delete(type);
 	t1.GetAttributes(t1);
-	BOOST_CHECK(t1.GetSize(t1)==0);
+	BOOST_CHECK(t1.GetSize()==0);
 }
 
 BOOST_AUTO_TEST_CASE(Test27)
@@ -421,7 +423,7 @@ BOOST_AUTO_TEST_CASE(Test27)
 	t1.Add(a3, "DOB");
 	t1.Delete("DOB");
 	t1.GetAttributes(t1);
-	BOOST_CHECK(t1.GetSize(t1)==1);                   
+	BOOST_CHECK(t1.GetSize()==1);                   
 }
 
 BOOST_AUTO_TEST_CASE(Test28)
@@ -517,7 +519,7 @@ BOOST_AUTO_TEST_CASE(Test32)
    t1.Delete("name");
    t1.Delete("ssn");
    t1.Delete("occ");
-   BOOST_CHECK(t1.GetSize(t1)==0);                           
+   BOOST_CHECK(t1.GetSize()==0);                           
 }
 
 BOOST_AUTO_TEST_CASE(Test33)
@@ -534,7 +536,7 @@ BOOST_AUTO_TEST_CASE(Test33)
    t1.Insert(r2);
    t1.Insert(r3);
   
-   BOOST_CHECK(t1.GetSize(t1)==3);                    
+   BOOST_CHECK(t1.GetSize()==3);                    
 }
 
 BOOST_AUTO_TEST_CASE(Test34)
@@ -550,7 +552,7 @@ BOOST_AUTO_TEST_CASE(Test34)
    t1.Insert(r2);
    t1.Insert(r3);
    t1.Add(a1, "NAME");
-   BOOST_CHECK(t1.GetSize(t1)==3);                       
+   BOOST_CHECK(t1.GetSize()==3);                       
 }
 
 BOOST_AUTO_TEST_CASE(Test35)
@@ -595,18 +597,6 @@ BOOST_AUTO_TEST_CASE(Test35)
 //  int Max(Attribute _attribute)
 //    Finds the maximum element for a given attribute and returns it as an 
 //    integer number.
-
-bool vectorContainsAttr(vector<Attribute> vect, string elem) {
-	//returns true if vect contains an attribute with name = elem
-
-	vector<Attribute>::iterator it = vect.begin();
-
-	while (it != vect.end()) {
-		if ( it->name == elem) return true;
-	}
-
-	return false;
-}
 
 //testing rename(string, string)
 
