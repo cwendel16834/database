@@ -1,3 +1,4 @@
+//uncomment if only running this test
 //#define BOOST_TEST_MAIN
 
 #include <boost/test/unit_test.hpp>
@@ -17,13 +18,13 @@ bool vectorContainsAttr(vector<Attribute> vect, string elem) {
 	return false;
 }
 
-BOOST_AUTO_TEST_CASE(Test1)
+BOOST_AUTO_TEST_CASE(TableTest1)
 {
 	Table t1;
 	BOOST_CHECK(t1.GetSize()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test2)
+BOOST_AUTO_TEST_CASE(TableTest2)
 {
 	Table t1;
 	string type = "type";
@@ -32,7 +33,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK(vectorContainsAttr(vect, type)==true);
 }
 
-BOOST_AUTO_TEST_CASE(Test3)
+BOOST_AUTO_TEST_CASE(TableTest3)
 {
 	Table t1;
 	string typeA = "typeA";
@@ -45,7 +46,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	BOOST_CHECK(t1.GetSize()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test4)
+BOOST_AUTO_TEST_CASE(TableTest4)
 {
 	Table t1;
 	t1.Add("typeA", vc50);
@@ -53,7 +54,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 	BOOST_CHECK(t1.GetSize()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test5)
+BOOST_AUTO_TEST_CASE(TableTest5)
 {
 	Table t1;
 	string type="a";
@@ -63,7 +64,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	BOOST_CHECK(vect.size()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test6)
+BOOST_AUTO_TEST_CASE(TableTest6)
 {
 	Table t1;
 	Attribute a;
@@ -73,7 +74,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK(t1.GetAttributes().size()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test7)
+BOOST_AUTO_TEST_CASE(TableTest7)
 {
 	Table t1;
 	Attribute a;
@@ -83,7 +84,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 	BOOST_CHECK(t1.GetAttributes().size()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test8)
+BOOST_AUTO_TEST_CASE(TableTest8)
 {
 	Table t1;
 	Record r;
@@ -91,7 +92,7 @@ BOOST_AUTO_TEST_CASE(Test8)
 	BOOST_CHECK(t1.GetSize()==1);
 }
 
-BOOST_AUTO_TEST_CASE(Test9)
+BOOST_AUTO_TEST_CASE(TableTest9)
 {
 	Table t1;
 	Record r1;
@@ -111,7 +112,7 @@ BOOST_AUTO_TEST_CASE(Test9)
 	BOOST_CHECK(t1.GetSize()==6);
 }
 
-BOOST_AUTO_TEST_CASE(Test10)
+BOOST_AUTO_TEST_CASE(TableTest10)
 {
 	Table t1;
 	string type="a";
@@ -128,7 +129,7 @@ BOOST_AUTO_TEST_CASE(Test10)
 	BOOST_CHECK(t1.GetSize()==3);
 }
 
-BOOST_AUTO_TEST_CASE(Test11)
+BOOST_AUTO_TEST_CASE(TableTest11)
 {
 	Table t1;
 	Record r1;
@@ -145,7 +146,7 @@ BOOST_AUTO_TEST_CASE(Test11)
 	BOOST_CHECK(t1.GetSize()==3);
 }
 
-BOOST_AUTO_TEST_CASE(Test12)
+BOOST_AUTO_TEST_CASE(TableTest12)
 {
 	Table t1;
 	Record r1;
@@ -164,7 +165,7 @@ BOOST_AUTO_TEST_CASE(Test12)
 	BOOST_CHECK(vect.size()==3);
 }
 
-BOOST_AUTO_TEST_CASE(Test13)
+BOOST_AUTO_TEST_CASE(TableTest13)
 {
 	Table t1;
 	Record r1;
@@ -181,7 +182,7 @@ BOOST_AUTO_TEST_CASE(Test13)
 	BOOST_CHECK(vectorContainsAttr(vect, "PHONE")==false);
 }
 
-BOOST_AUTO_TEST_CASE(Test14)
+BOOST_AUTO_TEST_CASE(TableTest14)
 {
    vector<string> atts;
    atts.push_back("a1");
@@ -195,7 +196,7 @@ BOOST_AUTO_TEST_CASE(Test14)
    BOOST_CHECK(t1.GetAttributes().size()==3);
 }
 
-BOOST_AUTO_TEST_CASE(Test15)
+BOOST_AUTO_TEST_CASE(TableTest15)
 {
    vector<string> vect;
    vector<string> type;
@@ -203,7 +204,7 @@ BOOST_AUTO_TEST_CASE(Test15)
    BOOST_CHECK(t1.GetAttributes().size()==0);
 }
 
-BOOST_AUTO_TEST_CASE(Test16)
+BOOST_AUTO_TEST_CASE(TableTest16)
 {
 
    Table t1;
@@ -214,7 +215,7 @@ BOOST_AUTO_TEST_CASE(Test16)
                             
 }
 
-BOOST_AUTO_TEST_CASE(Test17)
+BOOST_AUTO_TEST_CASE(TableTest17)
 {
    vector<Attribute> atts;
    Record r1;
@@ -225,7 +226,7 @@ BOOST_AUTO_TEST_CASE(Test17)
    BOOST_CHECK(vectorContainsAttr(vect, "ADDRESS")==true);
 }
 
-BOOST_AUTO_TEST_CASE(Test18)
+BOOST_AUTO_TEST_CASE(TableTest18)
 {
   
    Table t1;
@@ -235,7 +236,7 @@ BOOST_AUTO_TEST_CASE(Test18)
    BOOST_CHECK(vectorContainsAttr(vect, "DOB")==true);
 }
 
-BOOST_AUTO_TEST_CASE(Test19)
+BOOST_AUTO_TEST_CASE(TableTest19)
 {
   Table t1;
   t1.Add("name", vc50);
@@ -249,7 +250,7 @@ BOOST_AUTO_TEST_CASE(Test19)
   BOOST_CHECK(t1.GetSize()==1);
 }
 
-BOOST_AUTO_TEST_CASE(Test20)
+BOOST_AUTO_TEST_CASE(TableTest20)
 {
   Table t1;
   string name1 = "NAME";
@@ -266,7 +267,7 @@ BOOST_AUTO_TEST_CASE(Test20)
   BOOST_CHECK(t1.GetSize()==1);
 }
 
-BOOST_AUTO_TEST_CASE(Test21)
+BOOST_AUTO_TEST_CASE(TableTest21)
 {
   Table t1;
   string name1 = "NAME";
@@ -286,7 +287,7 @@ BOOST_AUTO_TEST_CASE(Test21)
   
 }
 
-BOOST_AUTO_TEST_CASE(Test22)
+BOOST_AUTO_TEST_CASE(TableTest22)
 {
   Table t1;
   string name1 = "NAME";
@@ -308,7 +309,7 @@ BOOST_AUTO_TEST_CASE(Test22)
   BOOST_CHECK(t1.GetSize()==1);
 }
 
-BOOST_AUTO_TEST_CASE(Test23)
+BOOST_AUTO_TEST_CASE(TableTest23)
 {
   Table t1;
   string name1 = "NAME";
@@ -339,7 +340,7 @@ BOOST_AUTO_TEST_CASE(Test23)
   BOOST_CHECK(vectorContainsAttr(vect, name2)==false); 
 }
 
-BOOST_AUTO_TEST_CASE(Test24)
+BOOST_AUTO_TEST_CASE(TableTest24)
 {
   	Table t1;
 	string type = "NAME";
@@ -351,7 +352,7 @@ BOOST_AUTO_TEST_CASE(Test24)
     BOOST_CHECK(vectorContainsAttr(vect, "NAME")==false);
 }
 
-BOOST_AUTO_TEST_CASE(Test25)
+BOOST_AUTO_TEST_CASE(TableTest25)
 {
   	Table t1;
 	Attribute a;
@@ -362,7 +363,7 @@ BOOST_AUTO_TEST_CASE(Test25)
     BOOST_CHECK(vectorContainsAttr(vect, type)==false);
 }
 
-BOOST_AUTO_TEST_CASE(Test26)
+BOOST_AUTO_TEST_CASE(TableTest26)
 {
     Table t1;
 	string type = "NAME";
@@ -376,7 +377,7 @@ BOOST_AUTO_TEST_CASE(Test26)
     BOOST_CHECK(vectorContainsAttr(vect, type)==false);
 }
 
-BOOST_AUTO_TEST_CASE(Test27)
+BOOST_AUTO_TEST_CASE(TableTest27)
 {
     Table t1;
 
@@ -390,7 +391,7 @@ BOOST_AUTO_TEST_CASE(Test27)
     BOOST_CHECK(vectorContainsAttr(vect, type)==true);                  
 }
 
-BOOST_AUTO_TEST_CASE(Test28)
+BOOST_AUTO_TEST_CASE(TableTest28)
 {
    vector<string> attname;
    vector<string> atttype;
@@ -401,7 +402,7 @@ BOOST_AUTO_TEST_CASE(Test28)
    BOOST_CHECK(vectorContainsAttr(vect, "SSN")==false);        
 }
 
-BOOST_AUTO_TEST_CASE(Test29)
+BOOST_AUTO_TEST_CASE(TableTest29)
 {
  vector<string> atts;
  vector<string> type;
@@ -416,7 +417,7 @@ BOOST_AUTO_TEST_CASE(Test29)
    BOOST_CHECK(vect.size() == 1);                      
 }
 
-BOOST_AUTO_TEST_CASE(Test30)
+BOOST_AUTO_TEST_CASE(TableTest30)
 {
    
    Table t1;
@@ -426,7 +427,7 @@ BOOST_AUTO_TEST_CASE(Test30)
    BOOST_CHECK(t1.GetAttributes().size() == 1);                          
 }
 
-BOOST_AUTO_TEST_CASE(Test31)
+BOOST_AUTO_TEST_CASE(TableTest31)
 {
    
    Table t1;
@@ -436,7 +437,7 @@ BOOST_AUTO_TEST_CASE(Test31)
 
 }
 
-BOOST_AUTO_TEST_CASE(Test32)
+BOOST_AUTO_TEST_CASE(TableTest32)
 {
   
    Table t1;
@@ -446,7 +447,7 @@ BOOST_AUTO_TEST_CASE(Test32)
    BOOST_CHECK(t1.GetSize()==1);                           
 }
 
-BOOST_AUTO_TEST_CASE(Test33)
+BOOST_AUTO_TEST_CASE(TableTest33)
 {
 
    Record r1;
@@ -463,7 +464,7 @@ BOOST_AUTO_TEST_CASE(Test33)
    BOOST_CHECK(t1.GetSize()==3);                    
 }
 
-BOOST_AUTO_TEST_CASE(Test34)
+BOOST_AUTO_TEST_CASE(TableTest34)
 {
    Attribute a1;
    Record r1;
@@ -480,7 +481,7 @@ BOOST_AUTO_TEST_CASE(Test34)
    BOOST_CHECK(t1.GetSize()==3);                       
 }
 
-BOOST_AUTO_TEST_CASE(Test35)
+BOOST_AUTO_TEST_CASE(TableTest35)
 {
    Attribute a1;
    Record r1;
@@ -844,14 +845,283 @@ BOOST_AUTO_TEST_CASE(CrossJoin11)
 BOOST_AUTO_TEST_CASE(Sum1) 
 {
 	Table t1, t2, t3;
-	t1.Add("name", vc50);
-	t1.Add("email", vc50);
-	t1.Add("username", vc50);
+	t1.Add("num", "int");		
+
+	BOOST_CHECK(t1.Sum("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Sum2) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
 	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Sum("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Sum3) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
 	
-	t1.Insert(Record());
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("2");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Sum("num") == 2);
+}
+
+BOOST_AUTO_TEST_CASE(Sum4) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("2");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("3");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("4");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("5");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Sum("num") == 15);
+}
+
+BOOST_AUTO_TEST_CASE(Sum5) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-1");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-2");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-3");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-4");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-5");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Sum("num") == -15);
+}
+
+//testing count(string)
+
+BOOST_AUTO_TEST_CASE(Count1) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");		
+
+	BOOST_CHECK(t1.Count("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Count2) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
 	t1.Insert(Record());
 		
 
-	BOOST_CHECK(false);
+	BOOST_CHECK(t1.Count("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Count3) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Count("num") == 1);
+}
+
+BOOST_AUTO_TEST_CASE(Count4) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Count("num") == 4);
+}
+
+BOOST_AUTO_TEST_CASE(Count5) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+
+	t1.Insert(Record());
+		
+
+	BOOST_CHECK(t1.Count("num") == 4);
+}
+
+//testing Min(string)
+
+BOOST_AUTO_TEST_CASE(Min1) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");		
+
+	//should return some sort of error value, perhaps INT_MAX...
+	BOOST_CHECK(t1.Min("num") == INT_MAX);
+}
+
+BOOST_AUTO_TEST_CASE(Min2) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Min("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Min3) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Min("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Min4) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-1");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Min("num") == -1);
+}
+
+//testing Max(string)
+
+BOOST_AUTO_TEST_CASE(Max1) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");		
+
+	//should return some sort of error value, perhaps INT_MIN...
+	BOOST_CHECK(t1.Max("num") == INT_MIN);
+}
+
+BOOST_AUTO_TEST_CASE(Max2) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Max("num") == 0);
+}
+
+BOOST_AUTO_TEST_CASE(Max3) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("1");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Max("num") == 1);
+}
+
+BOOST_AUTO_TEST_CASE(Max4) 
+{
+	Table t1, t2, t3;
+	t1.Add("num", "int");
+	
+	vector<string> v;
+	v.push_back("0");
+	t1.Insert(Record(v));
+	v.clear();
+	v.push_back("-1");
+	t1.Insert(Record(v));
+		
+
+	BOOST_CHECK(t1.Max("num") == 0);
 }

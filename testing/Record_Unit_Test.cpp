@@ -1,4 +1,5 @@
-#define BOOST_TEST_MAIN
+//uncomment if running only this test
+//#define BOOST_TEST_MAIN
 
 #include <boost/test/unit_test.hpp>
 #include "Record.h"
