@@ -129,11 +129,7 @@ newRecord: a record object that is to be inserted into the table
 Return Value: returns 0 if successful, 1 if unsuccessful
 _______________________________________________________________________________________
 
-<<<<<<< HEAD
-string Table::getAttributes()
-=======
 vector<string> Table::getAttributes()
->>>>>>> origin/update
 Description: A function that returns a list of the attributes in the table
 
 Parameters: none
@@ -207,11 +203,22 @@ Return value: The record containing the maximum value for the specified attribut
 Record
 ========================================================================================
 
+Record::Record();
+Description: Creates a new record with no entries
+
+Parameters: none
+_______________________________________________________________________________________
 Record::Record(int numEntries);
 Description: Creates a new record with space allocated for the number of entries specified in numEntries
 
 Parameters: 
 numEntries: The number of entries in this record
+_______________________________________________________________________________________
+
+Record::~Record();
+Description: Destroys the Record and returns all assets
+
+Parameters: none
 _______________________________________________________________________________________
 
 int Record::updateEntry(int entryNum, string data);
@@ -231,5 +238,13 @@ Parameters:
 entryNum: The index of the entry to retrieve data from
 
 Return value: The value stored in the specified entry
+_______________________________________________________________________________________
+
+int Record::getNumEntries();
+Description: Returns the number of entries in the Record
+
+Parameters: none
+
+Return value: The number of entries in the Record
 
 
