@@ -1,5 +1,5 @@
 //need accessor function in Record class
-//where are the entry values stored? in record or table?
+//where are the attribute values stored? in record or table?
 //the Min and Max functions should return values not records. If they are returned as record, we need to have the index of the elements. Instead, they can just return min and max values.
 //need print_attributes function
 
@@ -132,67 +132,67 @@ BOOST_AUTO_TEST_CASE(DeleteTupleTest5)
 
 // Table.h test cases
 
-Entry entries[1];
-Entry name_entry("Name", "string");
-entries[0]=name_entry;
+Attribute attributes[1];
+Attribute name_attribute("Name", "string");
+attributes[0]=name_attribute;
 
-Table Table_test1(entries);
+Table Table_test1(attributes);
 
-Table Table_test2(entries);
-Entry Table3_entries[2];
-Entry date_entry("Date", "Date");
-Table3_entries[1]=date_entry;
-Entry age_entry("Age", "int");
-Table3_entries[1]=age_entry;
-Table Table_test3(Table3_entries);
+Table Table_test2(attributes);
+Attribute Table3_attributes[2];
+Attribute date_attribute("Date", "Date");
+Table3_attributes[1]=date_attribute;
+Attribute age_attribute("Age", "int");
+Table3_attributes[1]=age_attribute;
+Table Table_test3(Table3_attributes);
 
-Entry Joined_table_entries[3];
-Joined_table_entries[0]=name_entry;
-Joined_table_entries[1]=date_entry;
-Joined_table_entries[2]=age_entry;
-Table Table_test_joined(Joined_table_entries);
+Attribute Joined_table_attributes[3];
+Joined_table_attributes[0]=name_attribute;
+Joined_table_attributes[1]=date_attribute;
+Joined_table_attributes[2]=age_attribute;
+Table Table_test_joined(Joined_table_attributes);
 
-BOOST_AUTO_TEST_CASE(AddEntryTest1)
+BOOST_AUTO_TEST_CASE(AddAttributeTest1)
 {
-	Entry Entry_test("Age", "int");
-	BOOST_CHECK(Table_test1.addEntry(Entry_test)==0);
+	Attribute Attribute_test("Age", "int");
+	BOOST_CHECK(Table_test1.addAttribute(Attribute_test)==0);
 }
 
-BOOST_AUTO_TEST_CASE(AddEntryTest2)
+BOOST_AUTO_TEST_CASE(AddAttributeTest2)
 {
-	Entry Entry_test("Date", "Date");
-	BOOST_CHECK(Table_test1.addEntry(Entry_test)==0);
+	Attribute Attribute_test("Date", "Date");
+	BOOST_CHECK(Table_test1.addAttribute(Attribute_test)==0);
 }
 
-BOOST_AUTO_TEST_CASE(AddEntryTest3)
+BOOST_AUTO_TEST_CASE(AddAttributeTest3)
 {
-	Entry Entry_test("Balance", "float");
-	BOOST_CHECK(Table_test1.addEntry(Entry_test)==0);
+	Attribute Attribute_test("Balance", "float");
+	BOOST_CHECK(Table_test1.addAttribute(Attribute_test)==0);
 }
 
-BOOST_AUTO_TEST_CASE(DeleteEntryTest1)
+BOOST_AUTO_TEST_CASE(DeleteAttributeTest1)
 {
-	Entry Entry_test("Name", "int");
-	BOOST_CHECK(Table_test1.deleteEntry(Entry_test)==1);
+	Attribute Attribute_test("Name", "int");
+	BOOST_CHECK(Table_test1.deleteAttribute(Attribute_test)==1);
 }
 
-BOOST_AUTO_TEST_CASE(DeleteEntryTest2)
+BOOST_AUTO_TEST_CASE(DeleteAttributeTest2)
 {
-	Entry Entry_test("Date", "Date");
-	BOOST_CHECK(Table_test1.deleteEntry(Entry_test)==0);
+	Attribute Attribute_test("Date", "Date");
+	BOOST_CHECK(Table_test1.deleteAttribute(Attribute_test)==0);
 }
 
 
-BOOST_AUTO_TEST_CASE(DeleteEntryTest3)
+BOOST_AUTO_TEST_CASE(DeleteAttributeTest3)
 {
-	Entry Entry_test("Balance", "float");
-	BOOST_CHECK(Table_test1.deleteEntry(Entry_test)==0);
+	Attribute Attribute_test("Balance", "float");
+	BOOST_CHECK(Table_test1.deleteAttribute(Attribute_test)==0);
 }
 
-BOOST_AUTO_TEST_CASE(DeleteEntryTest4)
+BOOST_AUTO_TEST_CASE(DeleteAttributeTest4)
 {
-	Entry Entry_test("Age", "int");
-	BOOST_CHECK(Table_test1.deleteEntry(Entry_test)==0);
+	Attribute Attribute_test("Age", "int");
+	BOOST_CHECK(Table_test1.deleteAttribute(Attribute_test)==0);
 }
 
 BOOST_AUTO_TEST_CASE(InsertRecordTest1)
@@ -352,48 +352,48 @@ BOOST_AUTO_TEST_CASE(MaxTest3)
 
 // Record.h test cases
 Record Record_test(1);
-int numEntries = 1;
+int numAttributes = 1;
 
-BOOST_AUTO_TEST_CASE(UpdateEntryTest1)
+BOOST_AUTO_TEST_CASE(UpdateAttributeTest1)
 {
-	//Entries are based on a 0 index, so a Record with a single entry can be
+	//Attributes are based on a 0 index, so a Record with a single attribute can be
 	//updated with Record_test.update(0, "name of attribute")
-	BOOST_CHECK(Record_test.updateEntry(numEntries, "data_type1")==0); //numEntries of the Record class
+	BOOST_CHECK(Record_test.updateAttribute(numAttributes, "data_type1")==0); //numAttributes of the Record class
 }
 
-BOOST_AUTO_TEST_CASE(UpdateEntryTest2)
+BOOST_AUTO_TEST_CASE(UpdateAttributeTest2)
 {
 	//See above comment ^^
-	BOOST_CHECK(Record_test.updateEntry(numEntries, "data_type2")==0);
+	BOOST_CHECK(Record_test.updateAttribute(numAttributes, "data_type2")==0);
 }
 
-BOOST_AUTO_TEST_CASE(UpdateEntryTest3)
+BOOST_AUTO_TEST_CASE(UpdateAttributeTest3)
 {
 	//Why should this return 1? 
-	BOOST_CHECK(Record_test.updateEntry(numEntries, "123")==1);
+	BOOST_CHECK(Record_test.updateAttribute(numAttributes, "123")==1);
 }
 
-BOOST_AUTO_TEST_CASE(GetEntryTest1)
+BOOST_AUTO_TEST_CASE(GetAttributeTest1)
 {
 	//I don't understand where the literal "column[0]" came from
-	BOOST_CHECK(Record_test.getEntry(0)=="column[0]");
+	BOOST_CHECK(Record_test.getAttribute(0)=="column[0]");
 }
 
-BOOST_AUTO_TEST_CASE(GetEntryTest2)
+BOOST_AUTO_TEST_CASE(GetAttributeTest2)
 {
 	//this expected data value does not make sense
-	BOOST_CHECK(Record_test.getEntry(numEntries-1)=="column[numEntries-1]");
+	BOOST_CHECK(Record_test.getAttribute(numAttributes-1)=="column[numAttributes-1]");
 }
 
-BOOST_AUTO_TEST_CASE(GetEntryTest3)
+BOOST_AUTO_TEST_CASE(GetAttributeTest3)
 {
 	//this will now throw an invalid_argument exception. Try catching that
-	BOOST_CHECK(Record_test.getEntry(numEntries)=="The column doesn't exist");
+	BOOST_CHECK(Record_test.getAttribute(numAttributes)=="The column doesn't exist");
 }
 
-BOOST_AUTO_TEST_CASE(GetEntryTest4)
+BOOST_AUTO_TEST_CASE(GetAttributeTest4)
 {
 	//this will now throw an invalid_argument exception. Try catching that
-	BOOST_CHECK(Record_test.getEntry(numEntries+100)=="The column doesn't exist");
+	BOOST_CHECK(Record_test.getAttribute(numAttributes+100)=="The column doesn't exist");
 }
 

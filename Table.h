@@ -5,11 +5,11 @@
 #include <vector>
 using namespace std;
 
-struct Entry
+struct Attribute
 {
-  string entryName;
-  string entryType;
-  Entry(string n="", string t=""): entryName(n), entryType(t) {};
+  string attributeName;
+  string attributeType;
+  Attribute(string n="", string t=""): attributeName(n), attributeType(t) {};
   
 };
 
@@ -27,9 +27,9 @@ public:
 	};
     
     Table(); 
-    Table(Entry entries[]);
-    int addEntry(Entry newEntry);
-    int deleteEntry(Entry oldEntry);
+    Table(Attribute attributes[]);
+    int addAttribute(Attribute newAttribute);
+    int deleteAttribute(Attribute oldAttribute);
     int insertRecord(Record newRecord);
     vector<string> getAttributes();
     int getSize();
@@ -42,7 +42,7 @@ public:
 
 private:
 	list<Record*> records; // List containing pointers to all of the Records in the table
-	vector<Entry> attributes; // Vector of all attribute columns of this Table
+	vector<Attribute> attributes; // Vector of all attribute columns of this Table
 };
 
 #endif

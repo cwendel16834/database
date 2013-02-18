@@ -4,13 +4,13 @@
 Table::Table() {
 
 }
-Table::Table(Entry entries[]) {
+Table::Table(Attribute attributes[]) {
 
 }
-int Table::addEntry(Entry newEntry) {
+int Table::addAttribute(Attribute newAttribute) {
 	return 0;
 }
-int Table::deleteEntry(Entry oldEntry) {
+int Table::deleteAttribute(Attribute oldAttribute) {
 	return 0;
 }
 int Table::insertRecord(Record newRecord) {
@@ -25,11 +25,11 @@ int Table::getSize() {
 }
 int Table::renameAttribute(string oldName, string newName) {
 
-	vector<Entry>::iterator it = attributes.begin();
+	vector<Attribute>::iterator it = attributes.begin();
 
 	while (it != attributes.end()) {
-		if (it->entryName == oldName) {
-			it->entryName = newName;
+		if (it->attributeName == oldName) {
+			it->attributeName = newName;
 			return 0;
 		}
 	}

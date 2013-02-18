@@ -73,14 +73,14 @@ Table::TableIterator
 Description: An iterator type for traversing the records in a Table
 _______________________________________________________________________________________
 
-Entry{}
-Description: This is a structure to contain the name and attribute type of an entry
+Attribute{}
+Description: This is a structure to contain the name and type of an attribute
 
 Parameters:
-entryName: name of the attribute
-entryType: a string name of the type of the attribute 
+attributeName: name of the attribute
+attributeType: a string name of the type of the attribute 
 
-Return Value: a new Entry structure
+Return Value: a new Attribute structure
 _______________________________________________________________________________________
 
 Table::Table()
@@ -91,31 +91,31 @@ Parameters: none
 Return Value: Table Object
 _______________________________________________________________________________________
 
-Table::Table(Entry entries[])
+Table::Table(Attribute attributes[])
 Description: This is a constructor that initializes a Table object populated with 
-entries designated by the user.
+attributes designated by the user.
 
 Parameters:
-entries: an array of Entry structures that are the entries the Table is to be initialized with
+attributes: an array of Attribute structures that are the attributes the Table is to be initialized with
 
 Return Value: a new Table object
 _______________________________________________________________________________________
 
-int Table::addEntry(Entry newEntry)
+int Table::addAttribute(Attribute newAttribute)
 Description
-This function adds a new entry to the table
+This function adds a new attribute to the table
 
 Parameters:
-newEntry: an Entry structure containing the name and type of the entry to be added
+newAttribute: an Attribute structure containing the name and type of the attribute to be added
 
 Return Value: returns 0 if successful and 1 if unsuccessful
 _______________________________________________________________________________________
 
-int Table::deleteEntry(Entry oldEntry)
-Description: deletes an entry from the Table 
+int Table::deleteAttribute(Attribute oldAttribute)
+Description: deletes an attribute from the Table 
 
 Parameters: 
-oldEntry: an Entry object that has the name and type of the entry that is to be deleted
+oldAttribute: an Attribute object that has the name and type of the attribute that is to be deleted
 
 Return Value: returns 0 if successful and 1 if unsuccessful
 _______________________________________________________________________________________
@@ -165,7 +165,7 @@ Return value: The joined Table
 _______________________________________________________________________________________
 
 double Table::sum(string attrName);
-Description: Computes the sum of all the entries in the specified attribute column.
+Description: Computes the sum of all the attributes in the specified attribute column.
 
 Parameters: 
 attrName: Name of the attribute to sum
@@ -174,12 +174,12 @@ Return value: Returns the sum of the specified attribute column.
 _______________________________________________________________________________________
 
 int Table::count(string attrName);
-Description: Computes the total number of non-NULL entries in the specified attribute column.
+Description: Computes the total number of non-NULL attributes in the specified attribute column.
 
 Parameters: 
 attrName: Name of the attribute to sum
 
-Return value: Returns the number of non-NULL entries in the specified attribute column.
+Return value: Returns the number of non-NULL attributes in the specified attribute column.
 _______________________________________________________________________________________
 
 Record& Table::min(string attrName);
@@ -204,15 +204,15 @@ Record
 ========================================================================================
 
 Record::Record();
-Description: Creates a new record with no entries
+Description: Creates a new record with no attributes
 
 Parameters: none
 _______________________________________________________________________________________
-Record::Record(int numEntries);
-Description: Creates a new record with space allocated for the number of entries specified in numEntries
+Record::Record(int numAttributes);
+Description: Creates a new record with space allocated for the number of attributes specified in numAttributes
 
 Parameters: 
-numEntries: The number of entries in this record
+numAttributes: The number of attributes in this record
 _______________________________________________________________________________________
 
 Record::~Record();
@@ -221,30 +221,30 @@ Description: Destroys the Record and returns all assets
 Parameters: none
 _______________________________________________________________________________________
 
-int Record::updateEntry(int entryNum, string data);
-Description: Updates the specified entry to the given data string. Returns 0 if successful or 1 if there is an error.
+int Record::updateAttribute(int attributeNum, string data);
+Description: Updates the specified attribute to the given data string. Returns 0 if successful or 1 if there is an error.
 
 Parameters: 
-entryNum: The index of the entry to update
-data: String containing the new value for the entry
+attributeNum: The index of the attribute to update
+data: String containing the new value for the attribute
 
 Return value: Returns 0 if successful, 1 if there is an error
 _______________________________________________________________________________________
 
-string Record::getEntry(int entryNum);
-Description: Returns the value stored in the specified entry.
+string Record::getAttribute(int attributeNum);
+Description: Returns the value stored in the specified attribute.
 
 Parameters: 
-entryNum: The index of the entry to retrieve data from
+attributeNum: The index of the attribute to retrieve data from
 
-Return value: The value stored in the specified entry
+Return value: The value stored in the specified attribute
 _______________________________________________________________________________________
 
-int Record::getNumEntries();
-Description: Returns the number of entries in the Record
+int Record::getNumAttributes();
+Description: Returns the number of attributes in the Record
 
 Parameters: none
 
-Return value: The number of entries in the Record
+Return value: The number of attributes in the Record
 
 
