@@ -1,4 +1,5 @@
 #include "Database.h"
+#include <string>
 
 int Database::addTable(string name, Table* table)
 {
