@@ -39,7 +39,19 @@ map<string, Table*>& Database::getTables()
 
 Table* Database::query(string select, Table* from, string whereName)
 {
-	Table* table;
+	vector<string> pieces;	
+
+	stringstream ss(whereName);
+	string piece;
+	while(getline(ss, piece, ' '))
+			pieces.push_back(piece);
+
+	for(int i=0; i<pieces.size(); i++)
+		cout << pieces[i] << endl;
+	
+
+
+	Table* table = new Table();
 	return table;
 }
 

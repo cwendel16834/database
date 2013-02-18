@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <iterator>
+#include <sstream>
 #include <vector>
 #include "Table.h"
 
