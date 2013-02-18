@@ -14,7 +14,7 @@
 #include "Table.h"
 
 // Database.h test cases
-/*
+
 Database databaseTest;
 Table* tableTest;
 vector<string> listTables;
@@ -128,10 +128,10 @@ BOOST_AUTO_TEST_CASE(DeleteTupleTest4)
 BOOST_AUTO_TEST_CASE(DeleteTupleTest5)
 {
 	BOOST_CHECK(databaseTest.deleteTuple("select_test5",tableTest,"where_test5")==0);
-}*/
+}
 
 // Table.h test cases
-/*
+
 Entry entries[1];
 Entry name_entry("Name", "string");
 entries[0]=name_entry;
@@ -348,7 +348,7 @@ BOOST_AUTO_TEST_CASE(MaxTest3)
 	Record Record_test(5);
 	BOOST_CHECK(Table_test1.max("Date")!=Record_test);
 }
-*/
+
 
 // Record.h test cases
 Record Record_test(1);
@@ -356,36 +356,44 @@ int numEntries = 1;
 
 BOOST_AUTO_TEST_CASE(UpdateEntryTest1)
 {
+	//Entries are based on a 0 index, so a Record with a single entry can be
+	//updated with Record_test.update(0, "name of attribute")
 	BOOST_CHECK(Record_test.updateEntry(numEntries, "data_type1")==0); //numEntries of the Record class
 }
 
 BOOST_AUTO_TEST_CASE(UpdateEntryTest2)
 {
+	//See above comment ^^
 	BOOST_CHECK(Record_test.updateEntry(numEntries, "data_type2")==0);
 }
 
 BOOST_AUTO_TEST_CASE(UpdateEntryTest3)
 {
+	//Why should this return 1? 
 	BOOST_CHECK(Record_test.updateEntry(numEntries, "123")==1);
 }
 
 BOOST_AUTO_TEST_CASE(GetEntryTest1)
 {
+	//I don't understand where the literal "column[0]" came from
 	BOOST_CHECK(Record_test.getEntry(0)=="column[0]");
 }
 
 BOOST_AUTO_TEST_CASE(GetEntryTest2)
 {
+	//this expected data value does not make sense
 	BOOST_CHECK(Record_test.getEntry(numEntries-1)=="column[numEntries-1]");
 }
 
 BOOST_AUTO_TEST_CASE(GetEntryTest3)
 {
+	//this will now throw an invalid_argument exception. Try catching that
 	BOOST_CHECK(Record_test.getEntry(numEntries)=="The column doesn't exist");
 }
 
 BOOST_AUTO_TEST_CASE(GetEntryTest4)
 {
+	//this will now throw an invalid_argument exception. Try catching that
 	BOOST_CHECK(Record_test.getEntry(numEntries+100)=="The column doesn't exist");
 }
 
