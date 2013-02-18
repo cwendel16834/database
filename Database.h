@@ -2,6 +2,7 @@
 #define DATABASE_H
 #include <iostream>
 #include <map>
+#include <iterator>
 #include <vector>
 #include "Table.h"
 
