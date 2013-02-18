@@ -10,13 +10,12 @@ public:
 	Record(); //Creates a Record object with 0 entries
 	Record(int numEntries); //Creates a Record object with numEntries entries
 	~Record(); 
-	int updateEntry(int entryNum, string data); //Updates value at position entryNum to value given in data
-	string getEntry(int entryNum); //Gets the entry data at position entryNum
+	int updateEntry(int entryNum, string data) throw(invalid_argument) ; //Updates value at position entryNum to value given in data
+	string getEntry(int entryNum) throw(invalid_argument); //Gets the entry data at position entryNum
 	int getNumEntries(); //Gets the number of entries in this Record
 
 private:
 	vector<string> entries;
-
 };
 
 #endif

@@ -12,18 +12,18 @@ Record::~Record() {
 
 }
 
-int Record::updateEntry(int entryNum, string data) {
+int Record::updateEntry(int entryNum, string data) throw(invalid_argument) {
 	if (entryNum >= entries.size() || entryNum < 0) {
-		return 1;
+		throw invalid_argument("ERROR: Entry index out of bounds!");
 	}
 
 	entries[entryNum] = data;
 	return 0;
 }
 
-string Record::getEntry(int entryNum) {
+string Record::getEntry(int entryNum) throw(invalid_argument) {
 	if (entryNum >= entries.size() || entryNum < 0) {
-		return "";
+		throw invalid_argument("ERROR: Entry index out of bounds!");
 	}
 
 	return entries[entryNum];
