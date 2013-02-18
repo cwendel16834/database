@@ -1,4 +1,5 @@
 #include "Table.h"
+#include <string>
 
 Table::Table() {
 
@@ -20,10 +21,20 @@ vector<string> Table::getAttributes() {
 	return att;
 }
 int Table::getSize() {
-	return 0;
+	return records.size();
 }
 int Table::renameAttribute(string oldName, string newName) {
-	return 0;
+
+	vector<Entry>::iterator it = attributes.begin();
+
+	while (it != attributes.end()) {
+		if (it->entryName == oldName) {
+			it->entryName = newName;
+			return 0;
+		}
+	}
+
+	return 1;
 }
 Table& Table::join(Table& table) {
 	return *this;
