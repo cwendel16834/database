@@ -13,7 +13,7 @@ Record::~Record() {
 }
 
 int Record::updateEntry(int entryNum, string data) {
-	if (entryNum > entries.size() || entryNum < 0) {
+	if (entryNum >= entries.size() || entryNum < 0) {
 		return 1;
 	}
 
@@ -22,7 +22,7 @@ int Record::updateEntry(int entryNum, string data) {
 }
 
 string Record::getEntry(int entryNum) {
-	if (entryNum > entries.size() || entryNum < 0) {
+	if (entryNum >= entries.size() || entryNum < 0) {
 		return "";
 	}
 

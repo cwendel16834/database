@@ -1,6 +1,7 @@
 #ifndef TABLE_H
 #define TABLE_H
 #include "Record.h"
+#include <list>
 #include <vector>
 using namespace std;
 
@@ -8,7 +9,7 @@ struct Entry
 {
   string entryName;
   string entryType;
-  Entry(string n, string t): entryName(n), entryType(t) {};
+  Entry(string n="", string t=""): entryName(n), entryType(t) {};
   
 };
 
@@ -40,7 +41,8 @@ public:
 	Record& max(string attrName);
 
 private:
-
+	list<Record*> records; // List containing pointers to all of the Records in the table
+	vector<Entry> attributes; // Vector of all attribute columns of this Table
 };
 
 #endif
