@@ -156,3 +156,10 @@ int Table::getAttributeIndex(string attrName) {
 
 	return -1;
 }
+
+Table::TableIterator Table::begin() {
+	return records.begin();
+}
+Table::TableIterator Table::end() {
+	return records.end();
+}

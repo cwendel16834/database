@@ -15,16 +15,6 @@ using namespace std;
 
 class DATABASE_API Table {
 public:
-	class TableIterator {
-	public:
-		TableIterator();
-		TableIterator(const TableIterator& it);
-		TableIterator& operator++();
-		TableIterator& operator++(int);
-		bool operator==(const TableIterator& rhs);
-		bool operator!=(const TableIterator& rhs);
-		Record& operator*();
-	};
 	
 	struct Attribute
 	{
@@ -50,6 +40,10 @@ public:
 	int count(string attrName);
 	string min(string attrName);
 	string max(string attrName);
+
+	typedef  list<Record*>::iterator TableIterator;
+	TableIterator begin();
+	TableIterator end();
 
 private:
 	list<Record*> records; // List containing pointers to all of the Records in the table
