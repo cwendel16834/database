@@ -3,6 +3,18 @@
 //the Min and Max functions should return values not records. If they are returned as record, we need to have the index of the elements. Instead, they can just return min and max values.
 //need print_attributes function
 
+//answers:
+//use getAttribute to get the value stored in the column, from 0 to the value returned by getNumAttributes()
+//attribute names and types are stored in a table, the values are stored in a Record in the same order
+//Min and Max have been updated appropriately
+//to pring attributes, call getAttributes() and loop through the returned vector
+
+//comments:
+//PLEASE MAKE SURE THIS FILE COMPILES!!! If it doesn't work for you, it won't work for us. Thanks.
+//Many of the tests do not make sense to me. Please make sure to consult the readme and leave comments
+// hinting at what you are trying to test if it isn't obvious.
+
+
 
 // main.cpp - BOOST TEST
 
