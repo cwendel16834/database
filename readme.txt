@@ -182,37 +182,37 @@ attrName: Name of the attribute to sum
 Return value: Returns the number of non-NULL attributes in the specified attribute column.
 _______________________________________________________________________________________
 
-Record& Table::min(string attrName);
+string Table::min(string attrName);
 Description: Computes the minimum element in the specified attribute column.
 
 Parameters: 
 attrName: Name of the attribute to find the minimum
 
-Return value: The record containing the minimum value for the specified attribute
+Return value: A string containing the minimum value for the specified attribute, can then be parsed to the desired type
 _______________________________________________________________________________________
 
-Record& Table::max(string attrName);
+string Table::max(string attrName);
 Description: Computes the maximum element in the specified attribute column.
 
 Parameters: 
 attrName: Name of the attribute to find the maximum
 
-Return value: The record containing the maximum value for the specified attribute
+Return value: A string containing the maximum value for the specified attribute, can then be parsed to the desired type
 
 ========================================================================================
 Record
 ========================================================================================
 
 Record::Record();
-Description: Creates a new record with no attributes
+Description: Creates a new record with no values
 
 Parameters: none
 _______________________________________________________________________________________
-Record::Record(int numAttributes);
-Description: Creates a new record with space allocated for the number of attributes specified in numAttributes
+Record::Record(int numValues);
+Description: Creates a new record with space allocated for the number of values specified in numValues
 
 Parameters: 
-numAttributes: The number of attributes in this record
+numValues: The number of values in this record
 _______________________________________________________________________________________
 
 Record::~Record();
@@ -221,30 +221,41 @@ Description: Destroys the Record and returns all assets
 Parameters: none
 _______________________________________________________________________________________
 
-int Record::updateAttribute(int attributeNum, string data);
-Description: Updates the specified attribute to the given data string. Returns 0 if successful or 1 if there is an error.
+int Record::updateValue(int valueNum, string value);
+Description: Updates the specified value to the given value string. Returns 0 if successful or 1 if there is an error.
 
 Parameters: 
-attributeNum: The index of the attribute to update
-data: String containing the new value for the attribute
+valueNum: The index of the value to update
+value: String containing the new value for the value
+
+Exceptions: Throws an invalid_argument exception if the valueNum is < 0 or > the number of values
 
 Return value: Returns 0 if successful, 1 if there is an error
 _______________________________________________________________________________________
 
-string Record::getAttribute(int attributeNum);
-Description: Returns the value stored in the specified attribute.
+string Record::getValue(int valueNum);
+Description: Returns the value stored in the specified value.
 
 Parameters: 
-attributeNum: The index of the attribute to retrieve data from
+valueNum: The index of the value to retrieve value from
 
-Return value: The value stored in the specified attribute
+Return value: The value stored in the specified value
 _______________________________________________________________________________________
 
-int Record::getNumAttributes();
-Description: Returns the number of attributes in the Record
+int Record::addValue(string value = "NULL");
+Description: Adds another space for an value value at the end of the Record, value defaults to "NULL" if not given
+
+Parameters: 
+value: The value to be stored in the new column, default is "NULL"
+
+Return value: 0 if successful, otherwise 1
+_______________________________________________________________________________________
+
+int Record::getNumValues();
+Description: Returns the number of values in the Record
 
 Parameters: none
 
-Return value: The number of attributes in the Record
+Return value: The number of values in the Record
 
 
