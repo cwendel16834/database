@@ -5,15 +5,9 @@
 #include <vector>
 using namespace std;
 
-struct Attribute
-{
-  string attributeName;
-  string attributeType;
-  Attribute(string n="", string t=""): attributeName(n), attributeType(t) {};
-  
-};
 
-class Table {
+
+class DATABASE_API Table {
 public:
 	class TableIterator {
 	public:
@@ -24,6 +18,14 @@ public:
 		bool operator==(const TableIterator& rhs);
 		bool operator!=(const TableIterator& rhs);
 		Record& operator*();
+	};
+	
+	struct Attribute
+	{
+		string attributeName;
+		string attributeType;
+		Attribute(string n="", string t=""): attributeName(n), attributeType(t) {};
+  
 	};
     
     Table(); 
@@ -38,7 +40,7 @@ public:
 	double sum(string attrName);
 	int count(string attrName);
 	string min(string attrName);
-	string& max(string attrName);
+	string max(string attrName);
 
 private:
 	list<Record*> records; // List containing pointers to all of the Records in the table

@@ -4,7 +4,7 @@
 Table::Table() {
 
 }
-Table::Table(Attribute attributes[]) {
+Table::Table(vector<Attribute> attributes) {
 
 }
 int Table::addAttribute(Attribute newAttribute) {
@@ -45,11 +45,9 @@ double Table::sum(string attrName) {
 int Table::count(string attrName) {
 	return 0;
 }
-Record& Table::min(string attrName) {
-	Record record(0);
-	return record;
+string Table::min(string attrName) {
+	return "";
 }
-Record& Table::max(string attrName) {
-	Record record(0);
-	return record;
+string Table::max(string attrName) {
+	return "";
 }
