@@ -1,3 +1,9 @@
+#ifdef DATABASE_EXPORTS
+#define DATABASE_API __declspec(dllexport) 
+#else
+#define DATABASE_API __declspec(dllimport) 
+#endif
+
 #ifndef DATABASE_H
 #define DATABASE_H
 #include <iostream>
@@ -9,7 +15,7 @@
 
 using namespace std;
 
-class Database
+class DATABASE_API Database
 {
 public:	
 	Database(){}

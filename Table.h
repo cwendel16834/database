@@ -1,3 +1,9 @@
+#ifdef DATABASE_EXPORTS
+#define DATABASE_API __declspec(dllexport) 
+#else
+#define DATABASE_API __declspec(dllimport) 
+#endif
+
 #ifndef TABLE_H
 #define TABLE_H
 #include "Record.h"
