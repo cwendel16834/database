@@ -198,6 +198,22 @@ Parameters:
 attrName: Name of the attribute to find the maximum
 
 Return value: A string containing the maximum value for the specified attribute, can then be parsed to the desired type
+_______________________________________________________________________________________
+
+TableIterator Table::begin();
+Description: Gives an iterator pointing to the first Record* in the Table
+
+Parameters: none
+
+Return value: An iterator pointing to the first Record* in the Table
+_______________________________________________________________________________________
+
+TableIterator Table::end();
+Description: Gives an iterator pointing to the postiion after the last Record* in the Table
+
+Parameters: none
+
+Return value: An iterator pointing to the postiion after the last Record* in the Table
 
 ========================================================================================
 Record
