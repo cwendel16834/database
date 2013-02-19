@@ -27,7 +27,7 @@ public:
 	};
     
     Table(); 
-    Table(Attribute attributes[]);
+    Table(vector<Attribute> attributes);
     int addAttribute(Attribute newAttribute);
     int deleteAttribute(Attribute oldAttribute);
     int insertRecord(Record newRecord);
@@ -37,8 +37,8 @@ public:
 	Table& join(Table& table);
 	double sum(string attrName);
 	int count(string attrName);
-	Record& min(string attrName);
-	Record& max(string attrName);
+	string min(string attrName);
+	string& max(string attrName);
 
 private:
 	list<Record*> records; // List containing pointers to all of the Records in the table
