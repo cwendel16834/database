@@ -36,13 +36,16 @@ public:
     
     Table(); 
     Table(vector<Attribute> attributes);
+
     int addAttribute(Attribute newAttribute);
     int deleteAttribute(Attribute oldAttribute);
-    int insertRecord(Record newRecord);
     vector<string> getAttributes();
-    int getSize();
 	int renameAttribute(string oldName, string newName);
+
+    int insertRecord(Record newRecord);
+    int getSize();
 	Table& join(Table& table);
+
 	double sum(string attrName);
 	int count(string attrName);
 	string min(string attrName);
@@ -51,6 +54,8 @@ public:
 private:
 	list<Record*> records; // List containing pointers to all of the Records in the table
 	vector<Attribute> attributes; // Vector of all attribute columns of this Table
+
+	int getAttributeIndex(string attrName);
 };
 
 #endif
