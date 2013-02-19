@@ -4,27 +4,35 @@ Record::Record() {
 
 }
 
-Record::Record(int numAttributes) {
-	attributes = vector<string>(numAttributes, "");
+Record::Record(int numValues) {
+	values = vector<string>(numValues, "");
 }
 
 Record::~Record() {
 
 }
 
-int Record::updateAttribute(int attributeNum, string data) throw(invalid_argument) {
-	if (attributeNum >= attributes.size() || attributeNum < 0) {
-		throw invalid_argument("ERROR: Attribute index out of bounds!");
+int Record::updateValue(int valueNum, string data) throw(invalid_argument) {
+	if (valueNum >= values.size() || valueNum < 0) {
+		throw invalid_argument("ERROR: Value index out of bounds!");
 	}
 
-	attributes[attributeNum] = data;
+	values[valueNum] = data;
 	return 0;
 }
 
-string Record::getAttribute(int attributeNum) throw(invalid_argument) {
-	if (attributeNum >= attributes.size() || attributeNum < 0) {
-		throw invalid_argument("ERROR: Attribute index out of bounds!");
+string Record::getValue(int valueNum) throw(invalid_argument) {
+	if (valueNum >= values.size() || valueNum < 0) {
+		throw invalid_argument("ERROR: Value index out of bounds!");
 	}
 
-	return attributes[attributeNum];
+	return values[valueNum];
+}
+
+void Record::addValue(string value="NULL") {
+	values.push_back(value);
+}
+
+int Record::getNumValues() {
+	return values.size();
 }
