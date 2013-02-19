@@ -257,5 +257,15 @@ Description: Returns the number of values in the Record
 Parameters: none
 
 Return value: The number of values in the Record
+_______________________________________________________________________________________
+
+static Record Record::joinRecords(Record& rec1, Record& rec2);
+Description: Creates a new Record with the values from rec1 followed by the values from rec2
+
+Parameters: 
+rec1: First Record to join
+rec2: Second Record to join
+
+Return value: A Record containing the values from the two given Records
 
 

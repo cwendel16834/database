@@ -36,3 +36,17 @@ void Record::addValue(string value="NULL") {
 int Record::getNumValues() {
 	return values.size();
 }
+
+Record Record::joinRecords(Record& rec1, Record& rec2) {
+	Record joinedRecord;
+
+	for( int i = 0; i < rec1.getNumValues(); i++) {
+		joinedRecord.addValue(rec1.getValue(i));
+	}
+
+	for( int i = 0; i < rec2.getNumValues(); i++) {
+		joinedRecord.addValue(rec2.getValue(i));
+	}
+
+	return joinedRecord;
+}

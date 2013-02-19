@@ -23,6 +23,8 @@ public:
 	void addValue(string value); //Adds another space for a value value at the end of the Record
 	int getNumValues(); //Gets the number of values in this Record
 
+	static Record joinRecords(Record& rec1, Record& rec2);
+
 private:
 	vector<string> values;
 };
