@@ -4,9 +4,9 @@
 int Database::addTable(string name, Table* table)
 {
 	if( !tableMap.insert(pair<string, Table*>(name, table)).second)
-		return 0;
-	else
 		return 1;
+	else
+		return 0;
 }
 
 int Database::dropTable(string name)
@@ -15,9 +15,9 @@ int Database::dropTable(string name)
 	it=tableMap.find(name);
 	tableMap.erase(it);
 	if(it==tableMap.end())
-		return 0;
-	else
 		return 1;
+	else
+		return 0;
 }
 
 vector<string>& Database::listTable()

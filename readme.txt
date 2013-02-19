@@ -16,7 +16,7 @@ Parameters:
 name: name of table to add
 table: pointer to a table that is being added to database
 
-Return value: returns 1 if successful and 0 if unsuccessful
+Return value: returns 0 if successful and 1 if unsuccessful
 _______________________________________________________________________________________
 
 int Database::dropTable(string name)
@@ -25,7 +25,7 @@ Description: Removes a specified table from the database.
 Parameters:
 name: name of table to remove
 
-Return value: returns 1 if successful and 0 if unsuccessful
+Return value: returns 0 if successful and 1 if unsuccessful
 _______________________________________________________________________________________
 
 vector<string>& Database::listTable()
@@ -63,7 +63,7 @@ select: a string list of which attribute names to keep, a null list means keep a
 from: the name of the table to delete the tuples from
 where: string to parse through that references the attributes
 
-Return value: returns 1 if successful and 0 if unsuccessful
+Return value: returns 0 if successful and 1 if unsuccessful
 
 ========================================================================================
 Table
@@ -126,7 +126,7 @@ Description: inserts a new record into the table
 Parameters:
 newRecord: a record object that is to be inserted into the table
 
-Return Value: returns 0 if successful, 1 if unsuccessful
+Return Value: returns 0 if successful and 1 if unsuccessful
 _______________________________________________________________________________________
 
 vector<string> Table::getAttributes()
