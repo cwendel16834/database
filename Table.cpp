@@ -17,7 +17,17 @@ int Table::addAttribute(Attribute newAttribute) {
 }
 
 int Table::deleteAttribute(Attribute oldAttribute) {
-	return 0;
+    for(int i=0;i<attributes.size();i++){
+      if(oldAttribute.attributeName==attributes[i].attributeName)
+      {
+      if(oldAttribute.attributeType==attributes[i].attributeType)
+      {
+        attributes.erase(attributes.begin()+i);
+        return 0;
+      }
+      }
+    }
+	return 1;
 }
 
 int Table::insertRecord(Record newRecord) {
