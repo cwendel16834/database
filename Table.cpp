@@ -5,7 +5,11 @@ Table::Table() {
 
 }
 
-Table::Table(vector<Attribute> attributes) {
+Table::Table(vector<Attribute> attr) {
+for(int i=0; i<attr.size(); i++)
+{
+    attributes.push_back(attr[i]);
+}
 
 }
 
@@ -34,7 +38,7 @@ int Table::renameAttribute(string oldName, string newName) {
 
 	int index = getAttributeIndex(oldName);
 	if (index == -1) return 1;
-	
+
 	attributes[index].attributeName = newName;
 	return 0;
 }
@@ -70,9 +74,9 @@ Table& Table::join(Table& table) {
 double Table::sum(string attrName) {
 	double sum = 0;
 	int attrIndex = getAttributeIndex(attrName);
-	if (attrIndex == -1) 
+	if (attrIndex == -1)
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
-	
+
 	list<Record*>::iterator it = records.begin();
 	while (it != records.end()) {
 		string value = (**it).getValue(attrIndex);
@@ -88,9 +92,9 @@ double Table::sum(string attrName) {
 int Table::count(string attrName) {
 	double count = 0;
 	int attrIndex = getAttributeIndex(attrName);
-	if (attrIndex == -1) 
+	if (attrIndex == -1)
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
-	
+
 	list<Record*>::iterator it = records.begin();
 	while (it != records.end()) {
 		string value = (**it).getValue(attrIndex);
@@ -106,9 +110,9 @@ string Table::min(string attrName) {
 	string min;
 
 	int attrIndex = getAttributeIndex(attrName);
-	if (attrIndex == -1) 
+	if (attrIndex == -1)
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
-	
+
 	//start with min value = first Record's value
 	min = records.front()->getValue(attrIndex);
 
@@ -127,9 +131,9 @@ string Table::max(string attrName) {
 	string max;
 
 	int attrIndex = getAttributeIndex(attrName);
-	if (attrIndex == -1) 
+	if (attrIndex == -1)
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
-	
+
 	//start with max value = first Record's value
 	max = records.front()->getValue(attrIndex);
 
@@ -148,7 +152,7 @@ int Table::getAttributeIndex(string attrName) {
 	vector<Attribute>::iterator it = attributes.begin();
 	int i = 0;
 	while (it != attributes.end()) {
-		if (it->attributeName == attrName) {			
+		if (it->attributeName == attrName) {
 			return i;
 		}
 		i++;

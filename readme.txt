@@ -91,7 +91,7 @@ Parameters: none
 Return Value: Table Object
 _______________________________________________________________________________________
 
-Table::Table(Attribute attributes[])
+Table::Table(Attribute attr[])
 Description: This is a constructor that initializes a Table object populated with 
 attributes designated by the user.
 
