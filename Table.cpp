@@ -6,15 +6,14 @@ Table::Table() {
 }
 
 Table::Table(vector<Attribute> attr) {
-for(int i=0; i<attr.size(); i++)
-{
-    attributes.push_back(attr[i]);
-}
+attributes=attr;
 
 }
 
 int Table::addAttribute(Attribute newAttribute) {
-	return 0;
+    attributes.push_back(newAttribute);
+    return 0;
+
 }
 
 int Table::deleteAttribute(Attribute oldAttribute) {
