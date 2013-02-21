@@ -11,7 +11,7 @@ Table::Table(vector<Attribute> attr) {
 
 int Table::addAttribute(Attribute newAttribute) {
     attributes.push_back(newAttribute);
-   
+
     list<Record>::iterator recordIterator=records.begin();
     while(recordIterator != records.end()) {
           recordIterator->values.push_back("NULL");
@@ -22,7 +22,7 @@ int Table::addAttribute(Attribute newAttribute) {
 }
 
 int Table::deleteAttribute(Attribute oldAttribute) {
-    
+
     for(int i=0;i<attributes.size();i++){
       if(oldAttribute.attributeName==attributes[i].attributeName)
       {
@@ -38,8 +38,8 @@ int Table::deleteAttribute(Attribute oldAttribute) {
       }
       }
     }
-    
-    
+
+
 	return 1;
 }
 
@@ -258,6 +258,12 @@ Table Table::filter(string attr, string op, string lit) {
 }
 
 bool attrEqual(vector<Table::Attribute> attr1, vector<Table::Attribute> attr2) {
+    if(attr1.size() != attr2.size()) return false;
+    for(int i=0; i<attr1.size(); i++)
+    {
+        if(attr1[i].attributeName != attr2[i].attributeName) return false;
+        if(attr1[i].attributeType != attr2[i].attributeType) return false;
+    }
 	return true;
 }
 
