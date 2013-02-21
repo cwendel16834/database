@@ -64,13 +64,13 @@ Table& Table::join(Table& table) {
 		joined.addAttribute(table.attributes[i]); // add attributes from given table
 	}
 
-	list<Record*>::iterator thisIterator = records.begin();
+	list<Record>::iterator thisIterator = records.begin();
 	while (thisIterator != records.end()) {
-		Record thisRecord = **thisIterator;
+		Record thisRecord = *thisIterator;
 
-		list<Record*>::iterator givenIterator = table.records.begin();
+		list<Record>::iterator givenIterator = table.records.begin();
 		while (givenIterator != table.records.end()) {
-			Record givenRecord = **givenIterator;
+			Record givenRecord = *givenIterator;
 
 			// join record from this table with a record from the given
 			// table and insert this into the joined table
@@ -87,9 +87,9 @@ double Table::sum(string attrName) {
 	if (attrIndex == -1)
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
 
-	list<Record*>::iterator it = records.begin();
+	list<Record>::iterator it = records.begin();
 	while (it != records.end()) {
-		string value = (**it).getValue(attrIndex);
+		string value = (*it).getValue(attrIndex);
 		if (value != "NULL") {
 			double number = stod(value);
 			sum += number;
@@ -105,9 +105,9 @@ int Table::count(string attrName) {
 	if (attrIndex == -1)
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
 
-	list<Record*>::iterator it = records.begin();
+	list<Record>::iterator it = records.begin();
 	while (it != records.end()) {
-		string value = (**it).getValue(attrIndex);
+		string value = (*it).getValue(attrIndex);
 		if (value != "NULL") {
 			count++;
 		}
@@ -124,11 +124,11 @@ string Table::min(string attrName) {
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
 
 	//start with min value = first Record's value
-	min = records.front()->getValue(attrIndex);
+	min = records.front().getValue(attrIndex);
 
-	list<Record*>::iterator it = records.begin();
+	list<Record>::iterator it = records.begin();
 	while (it != records.end()) {
-		string value = (**it).getValue(attrIndex);
+		string value = (*it).getValue(attrIndex);
 		if (value != "NULL" && value < min) {
 			min = value;
 		}
@@ -145,11 +145,11 @@ string Table::max(string attrName) {
 		throw invalid_argument("ERROR: " + attrName + " is not a valid attribute name!");
 
 	//start with max value = first Record's value
-	max = records.front()->getValue(attrIndex);
+	max = records.front().getValue(attrIndex);
 
-	list<Record*>::iterator it = records.begin();
+	list<Record>::iterator it = records.begin();
 	while (it != records.end()) {
-		string value = (**it).getValue(attrIndex);
+		string value = (*it).getValue(attrIndex);
 		if (value != "NULL" && value > max) {
 			max = value;
 		}

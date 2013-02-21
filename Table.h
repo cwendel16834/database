@@ -41,7 +41,7 @@ public:
 	string min(string attrName);
 	string max(string attrName);
 
-	typedef  list<Record*>::iterator TableIterator;
+	typedef  list<Record>::iterator TableIterator;
 	TableIterator begin();
 	TableIterator end();
 
