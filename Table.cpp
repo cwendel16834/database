@@ -31,6 +31,7 @@ int Table::deleteAttribute(Attribute oldAttribute) {
 }
 
 int Table::insertRecord(Record newRecord) {
+    records.push_back(newRecord);
 	return 0;
 }
 
