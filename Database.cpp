@@ -2,6 +2,8 @@
 #include <string>
 #include <map>
 
+//helpers
+
 vector<string> fixLiterals(vector<string> input) {
 	vector<string> result;
 	string merge = "";
@@ -55,6 +57,162 @@ string removeQuotes(string input) {
 
 	return input;
 }
+
+//queryII helpers
+
+bool evalComparison(string value, string type, string op, string lit) {
+
+	if (type == "int" || type == "double") {
+		double valueNum = stod(value);
+		double litNum = stod(lit);
+
+		if (op == "=") return valueNum == litNum;
+		else if (op == "!=") return valueNum != litNum;
+		else if (op == "<") return valueNum < litNum;
+		else if (op == ">") return valueNum > litNum;
+		else if (op == "<=") return valueNum <= litNum;
+		else if (op == ">=") return valueNum >= litNum;
+	}
+	else { //handle varchars and dates as strings
+
+		if (op == "=") return value == lit;
+		else if (op == "!=") return value != lit;
+		else if (op == "<") return value < lit;
+		else if (op == ">") return value > lit;
+		else if (op == "<=") return value <= lit;
+		else if (op == ">=") return value >= lit;
+	}
+}
+
+bool evalBool(bool lhs, string op, bool rhs) {
+	if (op == "and") return lhs && rhs;
+	else if (op == "or") return lhs || rhs;
+}
+
+bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record meets requirements listed in cond
+	map<string, bool> bools; // used to hold labeled bool values representing evaluated parts of the expression
+	vector<string> redux; // used to reduce expression by swapping parts of the expression for their evaluated values
+	int count = 0;
+	
+	// find and evaluate comparisons (= != < > <= >=)
+	for (int i = 0; i < cond.size(); i+=4) {
+		string attr, op, lit;
+		attr = cond[i];
+		op = cond[i+1];
+		lit = cond[i+2];
+		
+		string value = rec.getValue(getAttributeIndex(attr));
+		Attribute attribute = getAttribute(attr);
+		lit = removeQuotes(lit);
+
+		//evaluate current expression
+		bool evaluated = evalComparison(value, attribute.attributeType, op, lit);
+
+		string label = "EXP" + count++;
+
+		//insert labeled bool into map for later retrieval 
+		bools.insert(pair<string, bool>(label, evaluated));
+
+		//put label into reduced expression to locate bool value later
+		redux.push_back(label);
+
+		if( i+3 < cond.size()) {
+			string boolOp = cond[i+3];
+			redux.push_back(boolOp);
+		}
+	}
+
+	//expression reduced to EXP#'s and boolean logic
+
+	//loop to find and evaluate all 'and' operations
+	for (int i = 1; i < redux.size(); ) {
+		if (redux[i] == "and") {
+			bool lhs, rhs, evaluated;
+			string l, r, op;
+
+			//load left and right labels and operation
+			l = redux[i-1];
+			op = redux[i];
+			r = redux[i+1];
+
+			//load evaluated bool values from map
+			lhs = bools[l];
+			rhs = bools[r];
+
+			evaluated = evalBool(lhs, op, rhs);
+
+			string label = "EXP" + count++;
+			//store new evaluated value for later use
+			bools.insert(pair<string, bool>(label, evaluated));
+
+			//replace evaluated expression with label for result
+			redux[i] = label;
+			redux.erase(redux.begin()+i+1);	
+			redux.erase(redux.begin()+i-1);			
+
+		}
+		else {
+			//skip expression label and look at next operator
+			i += 2;
+		}
+	}
+
+	//loop to find and evaluate all 'or' operations
+	for (int i = 1; i < redux.size(); ) {
+		if (redux[i] == "or") {
+			bool lhs, rhs, evaluated;
+			string l, r, op;
+
+			//load left and right labels and operation
+			l = redux[i-1];
+			op = redux[i];
+			r = redux[i+1];
+
+			//load evaluated bool values from map
+			lhs = bools[l];
+			rhs = bools[r];
+
+			evaluated = evalBool(lhs, op, rhs);
+
+			string label = "EXP" + count++;
+			//store new evaluated value for later use
+			bools.insert(pair<string, bool>(label, evaluated));
+
+			//replace evaluated expression with label for result
+			redux[i] = label;
+			redux.erase(redux.begin()+i+1);	
+			redux.erase(redux.begin()+i-1);			
+
+		}
+		else {
+			//skip expression label and look at next operator
+			i += 2;
+		}
+	}
+
+	//last expression evaluated is the overall result
+	bool result = bools["EXP" + count];
+	
+	return result;
+}
+
+Record selectValues(Record rec, vector<string> attrs) { //returns a Record containing values for the attributes in attrs
+	
+	//todo: fill this in
+	return Record();
+}
+
+vector<string> splitString(string str, char delim = ' ') { //splits str on each delim
+	vector<string> result;
+	stringstream ss(str);
+	string piece;
+	while(getline(ss, piece, ' '))
+			result.push_back(piece);
+
+	return result;
+}
+
+//Database Definitions
 
 int Database::addTable(string name, Table table)
 {
@@ -206,155 +364,40 @@ Table Database::query(string select, string from, string whereName)
 	return result;
 }
 
-bool evalComparison(string value, string type, string op, string lit) {
-
-	if (type == "int" || type == "double") {
-		double valueNum = stod(value);
-		double litNum = stod(lit);
-
-		if (op == "=") return valueNum == litNum;
-		else if (op == "!=") return valueNum != litNum;
-		else if (op == "<") return valueNum < litNum;
-		else if (op == ">") return valueNum > litNum;
-		else if (op == "<=") return valueNum <= litNum;
-		else if (op == ">=") return valueNum >= litNum;
-	}
-	else { //handle varchars and dates as strings
-
-		if (op == "=") return value == lit;
-		else if (op == "!=") return value != lit;
-		else if (op == "<") return value < lit;
-		else if (op == ">") return value > lit;
-		else if (op == "<=") return value <= lit;
-		else if (op == ">=") return value >= lit;
-	}
-}
-
-bool evalBool(bool lhs, string op, bool rhs) {
-	if (op == "and") return lhs && rhs;
-	else if (op == "or") return lhs || rhs;
-}
-
-bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record meets requirements listed in cond
-	map<string, bool> bools; // used to hold labeled bool values representing evaluated parts of the expression
-	vector<string> redux; // used to reduce expression by swapping parts of the expression for their evaluated values
-	int count = 0;
-	
-	// find and evaluate comparisons (= != < > <= >=)
-	for (int i = 0; i < cond.size(); i+=4) {
-		string attr, op, lit;
-		attr = cond[i];
-		op = cond[i+1];
-		lit = cond[i+2];
-		
-		string value = rec.getValue(getAttributeIndex(attr));
-		Attribute attribute = getAttribute(attr);
-		lit = removeQuotes(lit);
-
-		//evaluate current expression
-		bool evaluated = evalComparison(value, attribute.attributeType, op, lit);
-
-		string label = "EXP" + count++;
-
-		//insert labeled bool into map for later retrieval 
-		bools.insert(pair<string, bool>(label, evaluated));
-
-		//put label into reduced expression to locate bool value later
-		redux.push_back(label);
-
-		if( i+3 < cond.size()) {
-			string boolOp = cond[i+3];
-			redux.push_back(boolOp);
-		}
-	}
-
-	//expression reduced to EXP#'s and boolean logic
-
-	//loop to find and evaluate all 'and' operations
-	for (int i = 1; i < redux.size(); ) {
-		if (redux[i] == "and") {
-			bool lhs, rhs, evaluated;
-			string l, r, op;
-
-			//load left and right labels and operation
-			l = redux[i-1];
-			op = redux[i];
-			r = redux[i+1];
-
-			//load evaluated bool values from map
-			lhs = bools[l];
-			rhs = bools[r];
-
-			evaluated = evalBool(lhs, op, rhs);
-
-			string label = "EXP" + count++;
-			//store new evaluated value for later use
-			bools.insert(pair<string, bool>(label, evaluated));
-
-			//replace evaluated expression with label for result
-			redux[i] = label;
-			redux.erase(redux.begin()+i+1);	
-			redux.erase(redux.begin()+i-1);			
-
-		}
-		else {
-			//skip expression label and look at next operator
-			i += 2;
-		}
-	}
-
-	//loop to find and evaluate all 'or' operations
-	for (int i = 1; i < redux.size(); ) {
-		if (redux[i] == "or") {
-			bool lhs, rhs, evaluated;
-			string l, r, op;
-
-			//load left and right labels and operation
-			l = redux[i-1];
-			op = redux[i];
-			r = redux[i+1];
-
-			//load evaluated bool values from map
-			lhs = bools[l];
-			rhs = bools[r];
-
-			evaluated = evalBool(lhs, op, rhs);
-
-			string label = "EXP" + count++;
-			//store new evaluated value for later use
-			bools.insert(pair<string, bool>(label, evaluated));
-
-			//replace evaluated expression with label for result
-			redux[i] = label;
-			redux.erase(redux.begin()+i+1);	
-			redux.erase(redux.begin()+i-1);			
-
-		}
-		else {
-			//skip expression label and look at next operator
-			i += 2;
-		}
-	}
-
-	//last expression evaluated is the overall result
-	bool result = bools["EXP" + count];
-	
-	return result;
-}
-
-Record selectValues(Record rec, vector<string> attrs) { //returns a Record containing values for the attributes in attrs
-	
-	//todo: fill this in
-	return Record();
-}
-
-Table queryII(string select, string from, string whereName) {
+Table Database::queryII(string select, string from, string whereName) {
 	Table fromTable, result;
+
+	//from
+	map<string, Table>::iterator fromIt = tableMap.find(from);
+	if (fromIt == tableMap.end()) {
+		throw invalid_argument("ERROR: Invalid table name in from statment!");
+	}
+	fromTable = fromIt->second;
+
+	//split select and where strings into components
 	vector<string> attrSelected, whereCond;
 
+	whereCond = splitString(whereName);
+	whereCond = fixLiterals(whereCond);
+
+	attrSelected = splitString(select);
+	attrSelected = removeCommas(attrSelected);
+
+	//fill in attributes in result table
+	vector<string>::iterator vectIt = attrSelected.begin();
+	while(vectIt != attrSelected.end()) {
+		result.addAttribute(fromTable.getAttribute(*vectIt));
+		vectIt++;
+	}
+
+	//iterate through table and select specified values for qualified rows
 	Table::TableIterator it = fromTable.begin();
 	while(it != fromTable.end()) {
+		
 		bool meetsReq = fromTable.checkRow(*it, whereCond);
+		
+		//if this Record meets the requirements in the where clause, 
+		//select the requested values
 
 		if (meetsReq) {
 			Record selected = selectValues(*it, attrSelected);
