@@ -96,7 +96,9 @@ Table Table::join(Table& table) {
 			// join record from this table with a record from the given
 			// table and insert this into the joined table
 			joined.insertRecord(Record::joinRecords(thisRecord, givenRecord));
+			givenIterator++;
 		}
+		thisIterator++;
 	}
 
 	return joined;
@@ -115,6 +117,7 @@ double Table::sum(string attrName) {
 			double number = stod(value);
 			sum += number;
 		}
+		it++;
 	}
 
 	return sum;
@@ -132,6 +135,7 @@ int Table::count(string attrName) {
 		if (value != "NULL") {
 			count++;
 		}
+		it++;
 	}
 
 	return count;
@@ -153,6 +157,7 @@ string Table::min(string attrName) {
 		if (value != "NULL" && value < min) {
 			min = value;
 		}
+		it++;
 	}
 
 	return min;
@@ -174,6 +179,7 @@ string Table::max(string attrName) {
 		if (value != "NULL" && value > max) {
 			max = value;
 		}
+		it++;
 	}
 
 	return max;
@@ -187,6 +193,7 @@ int Table::getAttributeIndex(string attrName) {
 			return i;
 		}
 		i++;
+		it++;
 	}
 
 	return -1;
@@ -260,6 +267,7 @@ bool Table::containsRecord(Record record) {
 		if (it->key == record.key) {
 			return true;
 		}
+		it++;
 	}
 
 	return false;
@@ -275,6 +283,7 @@ Table Table::tableUnion(Table& t1, Table& t2) {
 	while (it1 != t1.end()) {
 		Record rec = *it1;
 		result.insertRecord(rec);
+		it1++;
 	}
 
 	TableIterator it2 = t2.begin();
@@ -283,6 +292,7 @@ Table Table::tableUnion(Table& t1, Table& t2) {
 		if(!t1.containsRecord(rec)){
 			result.insertRecord(rec);
 		}
+		it2++;
 	}
 
 	return result;
@@ -302,6 +312,7 @@ Table Table::tableIntersect(Table& t1, Table& t2) {
 		if(t2.containsRecord(rec)){
 			result.insertRecord(rec);
 		}
+		it1++;
 	}
 
 	return result;

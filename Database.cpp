@@ -28,6 +28,7 @@ vector<string> fixLiterals(vector<string> input) {
 				result.push_back(item);
 			}
 		}
+		it++;
 	}
 
 	return result;
@@ -40,6 +41,7 @@ vector<string> removeCommas(vector<string> input) {
 		if (item[item.size()-1] == ',') {
 			item = item.substr(0, item.size()-1);
 		}
+		it++;
 	}
 	return input;
 }
@@ -188,6 +190,7 @@ Table Database::query(string select, string from, string whereName)
 	//fill in attributes
 	while(it != selectPieces.end()) {
 		result.addAttribute(filteredTable.getAttribute(*it));
+		it++;
 	}
 
 	//fill in Records with selected columns
@@ -201,6 +204,7 @@ Table Database::query(string select, string from, string whereName)
 			newRec.addValue(rec.getValue(index));
 		}
 		result.insertRecord(newRec);
+		tableIt++;
 	}
 
 	return result;
