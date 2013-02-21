@@ -343,6 +343,8 @@ bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record m
 }
 
 Record selectValues(Record rec, vector<string> attrs) { //returns a Record containing values for the attributes in attrs
+	
+	//todo: fill this in
 	return Record();
 }
 
