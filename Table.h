@@ -56,9 +56,7 @@ public:
 private:
 	list<Record> records; // List containing  all of the Records in the table
 	vector<Attribute> attributes; // Vector of all attribute columns of this Table
-	int currentKey;
-	
-	
+
 };
 
 #endif

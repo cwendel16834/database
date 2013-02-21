@@ -1,11 +1,14 @@
 #include "Record.h"
 
-Record::Record() {
+int Record::currentKey = 0;
 
+Record::Record() {
+	key = Record::currentKey++;
 }
 
 Record::Record(int numValues) {
 	values = vector<string>(numValues, "");
+	key = Record::currentKey++;
 }
 
 Record::~Record() {

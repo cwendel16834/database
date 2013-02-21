@@ -2,12 +2,11 @@
 #include <string>
 
 Table::Table() {
-	currentKey = 0;
+
 }
 
 Table::Table(vector<Attribute> attr) {
 	attributes=attr;
-	currentKey = 0;
 }
 
 int Table::addAttribute(Attribute newAttribute) {
@@ -31,7 +30,6 @@ int Table::deleteAttribute(Attribute oldAttribute) {
 }
 
 int Table::insertRecord(Record newRecord) {
-	newRecord.key = currentKey++;
     records.push_back(newRecord);
 	return 0;
 }

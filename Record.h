@@ -32,6 +32,8 @@ public:
 private:
 	vector<string> values;
 	int key;
+
+	static int currentKey;
 };
 
 #endif
