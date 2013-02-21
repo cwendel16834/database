@@ -41,7 +41,9 @@ Table::Attribute Table::getAttribute(string attrName) {
 
 vector<string> Table::getAttributes() {
 	vector<string> att;
-	att=attributes;
+	for(int i=0; i<attributes.size(); i++){
+        att.push_back(attributes[i].attributeName);
+	}
 	return att;
 }
 
