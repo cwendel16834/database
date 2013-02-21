@@ -53,6 +53,8 @@ public:
 	static Table tableIntersect(Table& t1, Table& t2);
 	int getAttributeIndex(string attrName);
 
+	bool checkRow(Record rec, vector<string> cond);
+
 private:
 	list<Record> records; // List containing  all of the Records in the table
 	vector<Attribute> attributes; // Vector of all attribute columns of this Table
