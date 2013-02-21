@@ -12,6 +12,8 @@
 
 using namespace std;
 
+class Table;
+
 class DATABASE_API Record {
 
 public:
@@ -25,8 +27,11 @@ public:
 
 	static Record joinRecords(Record& rec1, Record& rec2);
 
+	friend class Table;
+
 private:
 	vector<string> values;
+	int key;
 };
 
 #endif
