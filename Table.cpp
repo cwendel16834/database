@@ -11,21 +11,35 @@ Table::Table(vector<Attribute> attr) {
 
 int Table::addAttribute(Attribute newAttribute) {
     attributes.push_back(newAttribute);
+   
+    list<Record>::iterator recordIterator=records.begin();
+    while(recordIterator != records.end()) {
+          recordIterator->values.push_back("NULL");
+          recordIterator++;
+                         }
     return 0;
 
 }
 
 int Table::deleteAttribute(Attribute oldAttribute) {
+    
     for(int i=0;i<attributes.size();i++){
       if(oldAttribute.attributeName==attributes[i].attributeName)
       {
       if(oldAttribute.attributeType==attributes[i].attributeType)
       {
         attributes.erase(attributes.begin()+i);
+        list<Record>::iterator recordIterator=records.begin();
+        while(recordIterator != records.end()) {
+          recordIterator->values.erase(recordIterator->values.begin()+i);
+          recordIterator++;
+          }
         return 0;
       }
       }
     }
+    
+    
 	return 1;
 }
 
