@@ -1,20 +1,19 @@
 #include "Table.h"
 #include <string>
-
+/*constructors for empty table or table with specific attributes*/
 Table::Table() {
-
 }
 
 Table::Table(vector<Attribute> attr) {
 	attributes=attr;
 }
-
+/*add a new attribute to the table*/
 int Table::addAttribute(Attribute newAttribute) {
     attributes.push_back(newAttribute);
     return 0;
 
 }
-
+/**/
 int Table::deleteAttribute(Attribute oldAttribute) {
     for(int i=0;i<attributes.size();i++){
       if(oldAttribute.attributeName==attributes[i].attributeName)
