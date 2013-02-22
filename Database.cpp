@@ -30,6 +30,7 @@ vector<string> fixLiterals(vector<string> input) {
 				result.push_back(item);
 			}
 		}
+		it++;
 	}
 
 	return result;
@@ -42,6 +43,7 @@ vector<string> removeCommas(vector<string> input) {
 		if (item[item.size()-1] == ',') {
 			item = item.substr(0, item.size()-1);
 		}
+		it++;
 	}
 	return input;
 }
@@ -255,7 +257,7 @@ map<string, Table>& Database::getTables()
 	return result;
 }
 
-Table Database::query(string select, string from, string whereName)
+/*Table Database::query(string select, string from, string whereName)
 {
 	//from
 	map<string, Table>::iterator fromIt = tableMap.find(from);
@@ -368,8 +370,8 @@ Table Database::query(string select, string from, string whereName)
 
 	return result;
 }
-
-Table Database::queryII(string select, string from, string whereName) {
+*/
+Table Database::query(string select, string from, string whereName) {
 	Table fromTable, result;
 	vector<int> attrSelIndex;
 
@@ -450,6 +452,6 @@ int Database::deleteTuple(string from, string whereName)
 		it++;
 	}
 	tableMap.at(from)=fromTable;
-	return 1;
+	return 0;
 }
 

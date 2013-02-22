@@ -9,7 +9,7 @@ Parameters: none
 Return Value: Database object
 _______________________________________________________________________________________
 
-int Database::addTable(string name, Table* table)
+int Database::addTable(string name, Table table)
 Description: Takes a specified table and a name and adds that table to the database.
 
 Parameters: 
@@ -36,30 +36,29 @@ Parameters: none
 Return value: A vector of type string is returned with the names of all the tables in the database.
 _______________________________________________________________________________________
 
-map<string, Table*>& Database::getTables()
+map<string, Table>& Database::getTables()
 Description: Returns all the tables in the database.
 
 Parameters: none
 
-Return value: A map<string, Table*>& is returned with all the tables that are in the database.
+Return value: A map<string, Table>& is returned with all the tables that are in the database.
 _______________________________________________________________________________________
 
-Table* Database::query(string select, Table* from, string where)
+Table Database::query(string select, string from, string where)
 Description: This is the query funtion for the database.
 
 Parameters:
-select: a string list of which attribute names to keep, a null list means keep all
+select: a string list of which attribute names to keep
 from: the name of the table to query
 where: string to parse through that references the attributes
 
-Return value: Returns a Table* that is the result of the query function.
+Return value: Returns a Table that is the result of the query function.
 _______________________________________________________________________________________
 
-int deleteTuple(string select, Table* from, string where)
+int deleteTuple(string from, string where)
 Description: Deletes the specified tuples from the table.
 
 Parameters:
-select: a string list of which attribute names to keep, a null list means keep all
 from: the name of the table to delete the tuples from
 where: string to parse through that references the attributes
 
@@ -91,12 +90,12 @@ Parameters: none
 Return Value: Table Object
 _______________________________________________________________________________________
 
-Table::Table(Attribute attr[])
+Table::Table(vector<Attribute> attr)
 Description: This is a constructor that initializes a Table object populated with 
 attributes designated by the user.
 
 Parameters:
-attributes: an array of Attribute structures that are the attributes the Table is to be initialized with
+attributes: a vector of Attribute structures that are the attributes the Table is to be initialized with
 
 Return Value: a new Table object
 _______________________________________________________________________________________
@@ -215,6 +214,68 @@ Parameters: none
 
 Return value: An iterator pointing to the postiion after the last Record* in the Table
 
+_______________________________________________________________________________________
+
+int getKey(Record rec);
+Description: Returns the key for a specified record
+
+Parameters: a record
+
+Return value: An iterator pointing to the postiion after the last Record* in the Table
+
+_______________________________________________________________________________________
+
+void removeRecord(Record delRecord);
+Description: Removes a specified record from the list
+
+Parameters: a record
+
+Return value: none
+
+_______________________________________________________________________________________
+
+Table filter(string attr, string op, string lit);
+Description: Filters out records based on the input criteria
+
+Parameters: 
+attr: attribute name
+op: operator
+lit: literal value
+
+Return value: a Table with the specified criteria in it.
+
+_______________________________________________________________________________________
+
+Table tableUnion(Table& t1, Table& t2);
+Description: Does a union of two tables
+
+Parameters: 
+t1: first table
+t2: second table
+
+Return value: returns a union of the two input tables
+
+_______________________________________________________________________________________
+
+Table tableIntersect(Table& t1, Table& t2);
+Description: Does an intersect of two tables
+
+Parameters: 
+t1: first table
+t2: second table
+
+Return value: returns an intersect of the two input tables
+
+_______________________________________________________________________________________
+
+bool checkRow(Record rec, vector<string> cond);
+Description: Returns true if the specified record meets the conditions, returns false otherwise.
+
+Parameters: 
+rec: input record
+cond: vector of string conditions
+
+Return value: returns true if the specified record meets the conditions, returns false otherwise.
 ========================================================================================
 Record
 ========================================================================================
