@@ -11,11 +11,6 @@
 #include <vector>
 using namespace std;
 
-
-
-class DATABASE_API Table {
-public:
-	
 	struct Attribute
 	{
 		string attributeName;
@@ -23,6 +18,11 @@ public:
 		Attribute(string n="", string t=""): attributeName(n), attributeType(t) {};
   
 	};
+
+class DATABASE_API Table {
+public:
+	
+
     
     Table(); 
     Table(vector<Attribute> attr);
@@ -34,6 +34,8 @@ public:
 	int renameAttribute(string oldName, string newName);
 
     int insertRecord(Record newRecord);
+	void removeRecord(Record delRecord);
+	int getKey(Record rec);
     int getSize();
 	Table join(Table& table);
 

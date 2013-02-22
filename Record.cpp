@@ -32,7 +32,7 @@ string Record::getValue(int valueNum) throw(invalid_argument) {
 	return values[valueNum];
 }
 
-void Record::addValue(string value="NULL") {
+void Record::addValue(string value) {
 	values.push_back(value);
 }
 

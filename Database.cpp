@@ -30,7 +30,6 @@ vector<string> fixLiterals(vector<string> input) {
 				result.push_back(item);
 			}
 		}
-		it++;
 	}
 
 	return result;
@@ -43,7 +42,6 @@ vector<string> removeCommas(vector<string> input) {
 		if (item[item.size()-1] == ',') {
 			item = item.substr(0, item.size()-1);
 		}
-		it++;
 	}
 	return input;
 }
@@ -198,10 +196,15 @@ bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record m
 	return result;
 }
 
-Record selectValues(Record rec, vector<string> attrs) { //returns a Record containing values for the attributes in attrs
+Record selectValues(Record rec, vector<int> attrsIndex) { //returns a Record containing values for the attributes in attrs
+	Record result;
 	
-	//todo: fill this in
-	return Record();
+	for(int i =0; i< attrsIndex.size(); i++)
+	{
+		result.addValue(rec.getValue(attrsIndex[i]));
+	}
+	
+	return result;
 }
 
 vector<string> splitString(string str, char delim = ' ') { //splits str on each delim
@@ -348,7 +351,6 @@ Table Database::query(string select, string from, string whereName)
 	//fill in attributes
 	while(it != selectPieces.end()) {
 		result.addAttribute(filteredTable.getAttribute(*it));
-		it++;
 	}
 
 	//fill in Records with selected columns
@@ -362,7 +364,6 @@ Table Database::query(string select, string from, string whereName)
 			newRec.addValue(rec.getValue(index));
 		}
 		result.insertRecord(newRec);
-		tableIt++;
 	}
 
 	return result;
@@ -370,6 +371,7 @@ Table Database::query(string select, string from, string whereName)
 
 Table Database::queryII(string select, string from, string whereName) {
 	Table fromTable, result;
+	vector<int> attrSelIndex;
 
 	//from
 	map<string, Table>::iterator fromIt = tableMap.find(from);
@@ -402,9 +404,13 @@ Table Database::queryII(string select, string from, string whereName) {
 		
 		//if this Record meets the requirements in the where clause, 
 		//select the requested values
+		for(int i=0; i<attrSelected.size();i++)
+		{
+			attrSelIndex.push_back(fromTable.getAttributeIndex(attrSelected[i]));
+		}
 
 		if (meetsReq) {
-			Record selected = selectValues(*it, attrSelected);
+			Record selected = selectValues(*it, attrSelIndex);
 			result.insertRecord(selected);
 		}
 		it++;
@@ -412,8 +418,38 @@ Table Database::queryII(string select, string from, string whereName) {
 	return result;
 }
 
-int Database::deleteTuple(string select, string from, string whereName)
+int Database::deleteTuple(string from, string whereName)
 {
-	return 0;
+	Table fromTable;	
+
+	//from
+	map<string, Table>::iterator fromIt = tableMap.find(from);
+	if (fromIt == tableMap.end()) {
+		throw invalid_argument("ERROR: Invalid table name in from statment!");
+	}
+	fromTable = fromIt->second;
+
+	//split select and where strings into components
+	vector<string> whereCond;
+
+	whereCond = splitString(whereName);
+	whereCond = fixLiterals(whereCond);	
+	
+	//iterate through table and select specified values for qualified rows
+	Table::TableIterator it = fromTable.begin();
+	while(it != fromTable.end()) {
+		
+		bool meetsReq = fromTable.checkRow(*it, whereCond);
+		
+		//if this Record meets the requirements in the where clause, 
+		//select the requested values		
+
+		if (meetsReq) {
+			fromTable.removeRecord(*it);			
+		}
+		it++;
+	}
+	tableMap.at(from)=fromTable;
+	return 1;
 }
 

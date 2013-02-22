@@ -25,7 +25,7 @@ public:
 	map<string, Table>& getTables();
 	Table query(string select, string from, string whereName);
 	Table queryII(string select, string from, string whereName);
-	int deleteTuple(string select, string from, string whereName);
+	int deleteTuple(string from, string whereName);
 	
 	
 private:

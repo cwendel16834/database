@@ -11,35 +11,21 @@ Table::Table(vector<Attribute> attr) {
 
 int Table::addAttribute(Attribute newAttribute) {
     attributes.push_back(newAttribute);
-
-    list<Record>::iterator recordIterator=records.begin();
-    while(recordIterator != records.end()) {
-          recordIterator->values.push_back("NULL");
-          recordIterator++;
-                         }
     return 0;
 
 }
 
 int Table::deleteAttribute(Attribute oldAttribute) {
-
     for(int i=0;i<attributes.size();i++){
       if(oldAttribute.attributeName==attributes[i].attributeName)
       {
       if(oldAttribute.attributeType==attributes[i].attributeType)
       {
         attributes.erase(attributes.begin()+i);
-        list<Record>::iterator recordIterator=records.begin();
-        while(recordIterator != records.end()) {
-          recordIterator->values.erase(recordIterator->values.begin()+i);
-          recordIterator++;
-          }
         return 0;
       }
       }
     }
-
-
 	return 1;
 }
 
@@ -47,8 +33,21 @@ int Table::insertRecord(Record newRecord) {
     records.push_back(newRecord);
 	return 0;
 }
+int Table::getKey(Record rec)
+{
+	return rec.currentKey;
+}
+void Table::removeRecord(Record delRecord)
+{
+	list<Record>::iterator it = records.begin();
+	while(it != records.end()) {
+		if(delRecord.currentKey == getKey(*it))
+			records.erase(it);
+	it++;
+	}
+}
 
-Table::Attribute Table::getAttribute(string attrName) {
+Attribute Table::getAttribute(string attrName) {
 	int index = getAttributeIndex(attrName);
 	return attributes[index];
 }
@@ -96,9 +95,7 @@ Table Table::join(Table& table) {
 			// join record from this table with a record from the given
 			// table and insert this into the joined table
 			joined.insertRecord(Record::joinRecords(thisRecord, givenRecord));
-			givenIterator++;
 		}
-		thisIterator++;
 	}
 
 	return joined;
@@ -117,7 +114,6 @@ double Table::sum(string attrName) {
 			double number = stod(value);
 			sum += number;
 		}
-		it++;
 	}
 
 	return sum;
@@ -135,7 +131,6 @@ int Table::count(string attrName) {
 		if (value != "NULL") {
 			count++;
 		}
-		it++;
 	}
 
 	return count;
@@ -157,7 +152,6 @@ string Table::min(string attrName) {
 		if (value != "NULL" && value < min) {
 			min = value;
 		}
-		it++;
 	}
 
 	return min;
@@ -179,7 +173,6 @@ string Table::max(string attrName) {
 		if (value != "NULL" && value > max) {
 			max = value;
 		}
-		it++;
 	}
 
 	return max;
@@ -193,7 +186,6 @@ int Table::getAttributeIndex(string attrName) {
 			return i;
 		}
 		i++;
-		it++;
 	}
 
 	return -1;
@@ -257,13 +249,7 @@ Table Table::filter(string attr, string op, string lit) {
 	}
 }
 
-bool attrEqual(vector<Table::Attribute> attr1, vector<Table::Attribute> attr2) {
-    if(attr1.size() != attr2.size()) return false;
-    for(int i=0; i<attr1.size(); i++)
-    {
-        if(attr1[i].attributeName != attr2[i].attributeName) return false;
-        if(attr1[i].attributeType != attr2[i].attributeType) return false;
-    }
+bool attrEqual(vector<Attribute> attr1, vector<Attribute> attr2) {
 	return true;
 }
 
@@ -273,7 +259,6 @@ bool Table::containsRecord(Record record) {
 		if (it->key == record.key) {
 			return true;
 		}
-		it++;
 	}
 
 	return false;
@@ -289,7 +274,6 @@ Table Table::tableUnion(Table& t1, Table& t2) {
 	while (it1 != t1.end()) {
 		Record rec = *it1;
 		result.insertRecord(rec);
-		it1++;
 	}
 
 	TableIterator it2 = t2.begin();
@@ -298,7 +282,6 @@ Table Table::tableUnion(Table& t1, Table& t2) {
 		if(!t1.containsRecord(rec)){
 			result.insertRecord(rec);
 		}
-		it2++;
 	}
 
 	return result;
@@ -318,7 +301,6 @@ Table Table::tableIntersect(Table& t1, Table& t2) {
 		if(t2.containsRecord(rec)){
 			result.insertRecord(rec);
 		}
-		it1++;
 	}
 
 	return result;
