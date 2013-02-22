@@ -210,9 +210,9 @@ Table::TableIterator Table::end() {
 Table Table::filter(string attr, string op, string lit) {
 
 	TableIterator it = begin();
-	while (true) {
+	while (it != end()) {
 		Record rec = *it;
-		string value;
+		string value = rec.getValue(getAttributeIndex(attr));
 		//"100" < "96"
 		// yyyy/mm/dd
 		if (op == "=") {
