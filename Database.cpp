@@ -22,7 +22,7 @@ vector<string> fixLiterals(vector<string> input) {
 		}
 		else {
 
-			if (item[0] == '\'') {
+			if (item[0] == '\'' && it != input.end()-1) {
 				merge = item;
 				merging = true;
 			}
