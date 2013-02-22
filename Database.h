@@ -15,9 +15,9 @@
 
 using namespace std;
 
-class DATABASE_API Database
-{
+class DATABASE_API Database{
 public:	
+<<<<<<< HEAD
 	Database(){}
 	int addTable(string name, Table table);
 	int dropTable(string name);
@@ -28,8 +28,19 @@ public:
 	int deleteTuple(string from, string whereName);
 	
 	
+=======
+ Database(){}
+ int addTable(string name, Table table);
+ int dropTable(string name);
+ vector<string>& listTable();
+ map<string, Table>& getTables();
+ Table query(string select, string from, string whereName);
+ Table queryII(string select, string from, string whereName);
+ int deleteTuple(string from, string whereName);
+
+>>>>>>> origin/commenting/formatting-
 private:
-	map<string, Table> tableMap;
+ map<string, Table> tableMap;
 	
 };
 
