@@ -18,44 +18,44 @@ struct Attribute{
  };
 
 class DATABASE_API Table {
-public:
- Table(); 
- Table(vector<Attribute> attr);
+public:    
+    Table(); 
+    Table(vector<Attribute> attr);
 
- int addAttribute(Attribute newAttribute);
- int deleteAttribute(Attribute oldAttribute);
- vector<string> getAttributes();
- Attribute getAttribute(string attrName);
- int renameAttribute(string oldName, string newName);
+    int addAttribute(Attribute newAttribute);
+    int deleteAttribute(Attribute oldAttribute);
+    vector<string> getAttributes();
+	Attribute getAttribute(string attrName);
+	int renameAttribute(string oldName, string newName);
 
- int insertRecord(Record newRecord);
- void removeRecord(Record delRecord);
- int getKey(Record rec);
- int getSize();
- Table join(Table& table);
+    int insertRecord(Record newRecord);
+	
+	int getKey(Record rec);
+    int getSize();
+	Table join(Table& table);
 
- double sum(string attrName);
- int count(string attrName);
- string min(string attrName);
- string max(string attrName);
+	double sum(string attrName);
+	int count(string attrName);
+	string min(string attrName);
+	string max(string attrName);
 
- typedef  list<Record>::iterator TableIterator;
- TableIterator begin();
- TableIterator end();
+	typedef  list<Record>::iterator TableIterator;
+	TableIterator begin();
+	TableIterator end();
 
- Table filter(string attr, string op, string lit);
- bool containsRecord(Record record);
+	Table filter(string attr, string op, string lit);
+	bool containsRecord(Record record);
+	void removeRecord(Record delRecord);
+	static Table tableUnion(Table& t1, Table& t2);
+	static Table tableIntersect(Table& t1, Table& t2);
+	int getAttributeIndex(string attrName);
 
- static Table tableUnion(Table& t1, Table& t2);
- static Table tableIntersect(Table& t1, Table& t2);
- int getAttributeIndex(string attrName);
-
- bool checkRow(Record rec, vector<string> cond);
-
+	
+	bool checkRow(Record rec, vector<string> cond);
+	
 private:
- /*containers for table records and attributes*/
- list<Record> records; 
- vector<Attribute> attributes; 
+	list<Record> records; // List containing  all of the Records in the table
+	vector<Attribute> attributes; // Vector of all attribute columns of this Table
 
 };
 
