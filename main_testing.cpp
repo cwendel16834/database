@@ -29,8 +29,8 @@ int main()
 	
 	d1.addTable("test",t1);
 
-	Table t2=d1.query("first", "test", "second = 'pesek' or first = 'ryan'");
-	int out=d1.deleteTuple("test", "first = 'ryan'");
+	Table t2=d1.query("first", "test", "second = 'pesek' or first = 'ryan'");	
+	//int out=d1.deleteTuple("test", "first = 'ryan'");
 
 	cout <<"t2 size "<< t2.getSize()<<endl;	
 	cout << "hi";

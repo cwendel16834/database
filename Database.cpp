@@ -12,9 +12,9 @@ vector<string> fixLiterals(vector<string> input) {
 	vector<string>::iterator it = input.begin();
 	while (it != input.end()) {
 		string item = *it;
-		if (merging) {
-			merge += " " + item;
 
+		if (merging) {
+			merge += " " + item;			
 			if (item[item.size()-1] == '\'') {
 				merging = false;
 				result.push_back(merge);
@@ -22,11 +22,11 @@ vector<string> fixLiterals(vector<string> input) {
 		}
 		else {
 
-			if (item[0] == '\'' && it != input.end()-1) {
+			if (item[0] == '\'' && it != input.end()-1 && !(item[item.size()-1] == '\'')) {
 				merge = item;
 				merging = true;
 			}
-			else {
+			else {				
 				result.push_back(item);
 			}
 		}
@@ -62,7 +62,7 @@ string removeQuotes(string input) {
 	return input;
 }
 
-//query helpers
+//queryII helpers
 
 bool evalComparison(string value, string type, string op, string lit) {
 
@@ -109,15 +109,13 @@ bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record m
 		lit = removeQuotes(lit);
 
 		//evaluate current expression
-		bool evaluated = evalComparison(value, attribute.attributeType, op, lit);
-		cout<<evaluated<<endl;
+		bool evaluated = evalComparison(value, attribute.attributeType, op, lit);		
 
 		//string label = "EXP" + ++count;
 		stringstream sstm;
 		sstm << "EXP" << ++count;
-		string label = sstm.str();
+		string label = sstm.str();		
 		
-		cout<<label<<endl;
 		//insert labeled bool into map for later retrieval 
 		bools.insert(pair<string, bool>(label, evaluated));
 
@@ -202,18 +200,13 @@ bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record m
 			//skip expression label and look at next operator
 			i += 2;
 		}
-	}
-	cout<<"size before: "<<bools.size()<<endl;
+	}	
 	//last expression evaluated is the overall result
 	stringstream ss;
 	ss << "EXP" << count;
 	string out = ss.str();
 
-	bool result = bools[out];	
-	cout<<"size after: "<<bools.size()<<endl;
-	cout<<count<<endl;
-	cout<<"count"<<count<<endl;
-	cout<<"result"<<result<<endl;
+	bool result = bools[out];		
 	return result;
 }
 
@@ -404,12 +397,8 @@ Table Database::query(string select, string from, string whereName) {
 	//split select and where strings into components
 	vector<string> attrSelected, whereCond;
 
-	whereCond = splitString(whereName);
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//FIX THIS!!
-	//whereCond = fixLiterals(whereCond);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	whereCond = splitString(whereName);		
+	whereCond = fixLiterals(whereCond);
 
 	attrSelected = splitString(select);
 	attrSelected = removeCommas(attrSelected);
@@ -458,10 +447,9 @@ int Database::deleteTuple(string from, string whereName)
 	//split select and where strings into components
 	vector<string> whereCond;
 
-	whereCond = splitString(whereName);
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//whereCond = fixLiterals(whereCond);	
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	whereCond = splitString(whereName);	
+	whereCond = fixLiterals(whereCond);	
+	
 	//iterate through table and select specified values for qualified rows
 	Table::TableIterator it = fromTable.begin();
 	Table::TableIterator tempIt;
