@@ -19,6 +19,7 @@ class DATABASE_API Record {
 public:
 	Record(); //Creates a Record object with no values
 	Record(int numValues); //Creates a Record object with numValues values
+	Record(vector<string> values); //Creates a Record containing the values in values
 	~Record(); 
 	int updateValue(int valueNum, string value) throw(invalid_argument) ; //Updates value at position valueNum to value given in data
 	string getValue(int valueNum) throw(invalid_argument); //Gets the value data at position valueNum

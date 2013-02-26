@@ -11,6 +11,10 @@ Record::Record(int numValues) {
 	key = Record::currentKey++;
 }
 
+Record::Record(vector<string> values) {
+	this->values = values;
+}
+
 Record::~Record() {
 
 }

@@ -285,11 +285,19 @@ Description: Creates a new record with no values
 
 Parameters: none
 _______________________________________________________________________________________
+
 Record::Record(int numValues);
 Description: Creates a new record with space allocated for the number of values specified in numValues
 
 Parameters: 
 numValues: The number of values in this record
+_______________________________________________________________________________________
+
+Record::Record(vector<string> values);
+Description: Creates a Record containing the values in values
+
+Parameters: 
+numValues: The values to be stored in this Record
 _______________________________________________________________________________________
 
 Record::~Record();
