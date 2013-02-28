@@ -2,6 +2,7 @@
 
 int Record::currentKey = 0;
 
+//constructor, key is unique value for each record
 Record::Record() {
 	key = Record::currentKey++;
 }
@@ -58,6 +59,7 @@ Record Record::joinRecords(Record& rec1, Record& rec2) {
 	return joinedRecord;
 }
 
+//overloads "==" operator, uses the keys of a record for comparison
 bool Record::operator==(const Record& a)
 {
 	if(currentKey==a.currentKey)

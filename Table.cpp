@@ -211,60 +211,6 @@ Table::TableIterator Table::end() {
 	return records.end();
 }
 
-Table Table::filter(string attr, string op, string lit) {
-
-	TableIterator it = begin();
-	while (it != end()) {
-		Record rec = *it;
-		string value = rec.getValue(getAttributeIndex(attr));
-		//"100" < "96"
-		// yyyy/mm/dd
-		if (op == "=") {
-			if (value != lit) {
-				records.erase(it);
-			}
-			else it++;
-		}
-		else if (op == "!=") {
-			if (value == lit) {
-				records.erase(it);
-			}
-			else it++;
-		}
-		else if (op == "<") {
-			if (value >= lit) {
-				records.erase(it);
-			}
-			else it++;
-		}
-		else if (op == ">") {
-			if (value <= lit) {
-				records.erase(it);
-			}
-			else it++;
-		}
-		else if (op == "<=") {
-			if (value > lit) {
-				records.erase(it);
-			}
-			else it++;
-		}
-		else if (op == ">=") {
-			if (value < lit) {
-				records.erase(it);
-			}
-			else it++;
-		}
-		else {
-			throw invalid_argument("ERROR: Invalid operation!");
-		}
-	}
-}
-
-bool attrEqual(vector<Attribute> attr1, vector<Attribute> attr2) {
-	return true;
-}
-
 bool Table::containsRecord(Record record) {
 	TableIterator it = begin();
 	while (it != end()) {
@@ -275,46 +221,4 @@ bool Table::containsRecord(Record record) {
 	}
 
 	return false;
-}
-
-Table Table::tableUnion(Table& t1, Table& t2) {
-	Table result(t1.attributes);
-	if (!attrEqual(t1.attributes, t2.attributes)) {
-		throw invalid_argument("ERROR! Attributes do not match!");
-	}
-
-	TableIterator it1 = t1.begin();
-	while (it1 != t1.end()) {
-		Record rec = *it1;
-		result.insertRecord(rec);
-	}
-
-	TableIterator it2 = t2.begin();
-	while (it2 != t2.end()) {
-		Record rec = *it2;
-		if(!t1.containsRecord(rec)){
-			result.insertRecord(rec);
-		}
-	}
-
-	return result;
-}
-
-Table Table::tableIntersect(Table& t1, Table& t2) {
-	Table result(t1.attributes);
-	if (!attrEqual(t1.attributes, t2.attributes)) {
-		throw invalid_argument("ERROR! Attributes do not match!");
-	}
-
-	TableIterator it1 = t1.begin();
-	while (it1 != t1.end()) {
-		Record rec = *it1;
-		result.insertRecord(rec);
-
-		if(t2.containsRecord(rec)){
-			result.insertRecord(rec);
-		}
-	}
-
-	return result;
 }

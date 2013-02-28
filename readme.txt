@@ -28,7 +28,7 @@ name: name of table to remove
 Return value: returns 0 if successful and 1 if unsuccessful
 _______________________________________________________________________________________
 
-vector<string>& Database::listTable()
+vector<string> Database::listTable()
 Description: Returns a list of all the table names in the database.
 
 Parameters: none
@@ -36,12 +36,12 @@ Parameters: none
 Return value: A vector of type string is returned with the names of all the tables in the database.
 _______________________________________________________________________________________
 
-map<string, Table>& Database::getTables()
+map<string, Table> Database::getTables()
 Description: Returns all the tables in the database.
 
 Parameters: none
 
-Return value: A map<string, Table>& is returned with all the tables that are in the database.
+Return value: A map<string, Table> is returned with all the tables that are in the database.
 _______________________________________________________________________________________
 
 Table Database::query(string select, string from, string where)
@@ -136,6 +136,14 @@ Parameters: none
 Return Value: a string that lists the types of attributes in the table
 _______________________________________________________________________________________
 
+int Table::getKey(Record Rec)
+Description: A function that returns the key of a specified record
+
+Parameters: rec: a record
+
+Return Value: an int that contains the key of a given record
+_______________________________________________________________________________________
+
 int Table::getSize()
 Description: A function that returns the size of the table
 
@@ -216,55 +224,12 @@ Return value: An iterator pointing to the postiion after the last Record* in the
 
 _______________________________________________________________________________________
 
-int getKey(Record rec);
-Description: Returns the key for a specified record
-
-Parameters: a record
-
-Return value: An iterator pointing to the postiion after the last Record* in the Table
-
-_______________________________________________________________________________________
-
 void removeRecord(Record delRecord);
 Description: Removes a specified record from the list
 
 Parameters: a record
 
 Return value: none
-
-_______________________________________________________________________________________
-
-Table filter(string attr, string op, string lit);
-Description: Filters out records based on the input criteria
-
-Parameters: 
-attr: attribute name
-op: operator
-lit: literal value
-
-Return value: a Table with the specified criteria in it.
-
-_______________________________________________________________________________________
-
-Table tableUnion(Table& t1, Table& t2);
-Description: Does a union of two tables
-
-Parameters: 
-t1: first table
-t2: second table
-
-Return value: returns a union of the two input tables
-
-_______________________________________________________________________________________
-
-Table tableIntersect(Table& t1, Table& t2);
-Description: Does an intersect of two tables
-
-Parameters: 
-t1: first table
-t2: second table
-
-Return value: returns an intersect of the two input tables
 
 _______________________________________________________________________________________
 
@@ -353,4 +318,13 @@ rec2: Second Record to join
 
 Return value: A Record containing the values from the two given Records
 
+_______________________________________________________________________________________
 
+bool Record::operator==(const Record& a);
+Description: overloads the operator==
+
+Parameters: 
+a: a record for comparison
+
+
+Return value: Returns true if a and the current record are equal, and returns false otherwise.

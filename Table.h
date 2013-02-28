@@ -43,20 +43,15 @@ public:
 	TableIterator begin();
 	TableIterator end();
 
-	Table filter(string attr, string op, string lit);
-	bool containsRecord(Record record);
-	void removeRecord(Record delRecord);
-	static Table tableUnion(Table& t1, Table& t2);
-	static Table tableIntersect(Table& t1, Table& t2);
-	int getAttributeIndex(string attrName);
-
 	
+	bool containsRecord(Record record);
+	void removeRecord(Record delRecord);	
+	int getAttributeIndex(string attrName);	
 	bool checkRow(Record rec, vector<string> cond);
 	
 private:
 	list<Record> records; // List containing  all of the Records in the table
 	vector<Attribute> attributes; // Vector of all attribute columns of this Table
-
 };
 
 #endif

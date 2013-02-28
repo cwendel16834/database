@@ -4,6 +4,7 @@
 
 //helpers
 
+//fucntion to merge literal values that have a space in them
 vector<string> fixLiterals(vector<string> input) {
 	vector<string> result;
 	string merge = "";
@@ -36,6 +37,7 @@ vector<string> fixLiterals(vector<string> input) {
 	return result;
 }
 
+//function to remove commas from input
 vector<string> removeCommas(vector<string> input) {
 	vector<string> result;
 	vector<string>::iterator it = input.begin();
@@ -50,6 +52,7 @@ vector<string> removeCommas(vector<string> input) {
 	return result;
 }
 
+//function remove single quotes from literal values
 string removeQuotes(string input) {
 	if (input[0] == '\'') {
 		input = input.substr(1, input.size()-1);
@@ -62,8 +65,9 @@ string removeQuotes(string input) {
 	return input;
 }
 
-//queryII helpers
+//query helpers
 
+//returns a bool value that determines if comparison was true or false
 bool evalComparison(string value, string type, string op, string lit) {
 
 	if (type == "int" || type == "double") {
@@ -90,6 +94,7 @@ bool evalComparison(string value, string type, string op, string lit) {
 	}
 }
 
+//determines true or false for "and" and "or" statements
 bool evalBool(bool lhs, string op, bool rhs) {
 	if (op == "and") return lhs && rhs;
 	else if (op == "or") return lhs || rhs;
@@ -97,6 +102,7 @@ bool evalBool(bool lhs, string op, bool rhs) {
 		throw invalid_argument("ERROR: Invalid operator parameter!");
 }
 
+//determines whether or not the given row meets the given conditions
 bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record meets requirements listed in cond
 	map<string, bool> bools; // used to hold labeled bool values representing evaluated parts of the expression
 	vector<string> redux; // used to reduce expression by swapping parts of the expression for their evaluated values
@@ -214,6 +220,7 @@ bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record m
 	return result;
 }
 
+//selects the correct attributes for a record, returns a record with only the selected attributes
 Record selectValues(Record rec, vector<int> attrsIndex) { //returns a Record containing values for the attributes in attrs
 	Record result;
 	
@@ -225,6 +232,7 @@ Record selectValues(Record rec, vector<int> attrsIndex) { //returns a Record con
 	return result;
 }
 
+//splits an input string by spaces and stores in a vector
 vector<string> splitString(string str, char delim = ' ') { //splits str on each delim
 	vector<string> result;
 	stringstream ss(str);
@@ -237,6 +245,7 @@ vector<string> splitString(string str, char delim = ' ') { //splits str on each 
 
 //Database Definitions
 
+//adds table to database
 int Database::addTable(string name, Table table)
 {
 	if( !tableMap.insert(pair<string, Table>(name, table)).second)
@@ -245,6 +254,7 @@ int Database::addTable(string name, Table table)
 		return 0;
 }
 
+//removes table from database
 int Database::dropTable(string name)
 {
 	map<string, Table>::iterator it;
@@ -256,6 +266,7 @@ int Database::dropTable(string name)
 		return 0;
 }
 
+//lists all the tables in the database by name
 vector<string> Database::listTable()
 {
 	vector<string> tableNames;
@@ -266,6 +277,7 @@ vector<string> Database::listTable()
 	return tableNames;
 }
 
+//returns all of the tables in the database
 map<string, Table> Database::getTables()
 {
 	map<string, Table> result;
@@ -273,120 +285,7 @@ map<string, Table> Database::getTables()
 	return result;
 }
 
-/*Table Database::query(string select, string from, string whereName)
-{
-	//from
-	map<string, Table>::iterator fromIt = tableMap.find(from);
-	if (fromIt == tableMap.end()) {
-		throw invalid_argument("ERROR: Invalid table name in from statment!");
-	}
-	Table fromTable = fromIt->second;
-
-	//where
-	vector<string> pieces, redux;
-	map<string, Table> tables;
-	int count = 0;
-
-	stringstream ss(whereName);
-	string piece;
-	while(getline(ss, piece, ' '))
-			pieces.push_back(piece);
-
-	pieces = fixLiterals(pieces);
-
-	for (int i = 0; i < pieces.size(); i+=4) {
-		string attr, op, lit;
-		attr = pieces[i];
-		op = pieces[i+1];
-		lit = pieces[i+2];
-
-		lit = removeQuotes(lit);
-
-		fromTable.filter(attr, op, lit);
-		string label = "EXP" + count++;
-		tables.insert(pair<string, Table>(label, fromTable));
-		redux.push_back(label);
-
-		if( i+3 < pieces.size()) {
-			string boolOp = pieces[i+3];
-			redux.push_back(boolOp);
-		}
-	}
-
-	//and loop
-	for (int i = 1; i < redux.size(); ) {
-		if (redux[i] == "and") {
-			Table lhs, rhs, intersectedTable;
-			lhs = tables[redux[i-1]];
-			rhs = tables[redux[i+1]];
-
-			intersectedTable = Table::tableIntersect(lhs, rhs);
-			string label = "EXP" + count++;
-			tables.insert(pair<string, Table>(label, intersectedTable));
-
-			redux[i] = label;
-			redux.erase(redux.begin());			
-
-		}
-		else {
-			i += 2;
-		}
-	}
-
-	//or loop
-	for (int i = 1; i < redux.size(); ) {
-		if (redux[i] == "or") {
-			Table lhs, rhs, unionedTable;
-			lhs = tables[redux[i-1]];
-			rhs = tables[redux[i+1]];
-
-			unionedTable = Table::tableUnion(lhs, rhs);
-			string label = "EXP" + count++;
-			tables.insert(pair<string, Table>(label, unionedTable));
-
-			redux[i] = label;
-			redux.erase(redux.begin());			
-
-		}
-		else {
-			i += 2;
-		}
-	}
-
-	Table filteredTable = tables["EXP" + count];
-
-	
-	Table result;
-	//select
-	vector<string> selectPieces;
-	stringstream ss2(select);
-	while(getline(ss2, piece, ' '))
-			selectPieces.push_back(piece);
-	selectPieces = removeCommas(selectPieces);
-
-	vector<string>::iterator it = selectPieces.begin();
-
-	//fill in attributes
-	while(it != selectPieces.end()) {
-		result.addAttribute(filteredTable.getAttribute(*it));
-	}
-
-	//fill in Records with selected columns
-	Table::TableIterator tableIt = filteredTable.begin();
-	while(tableIt != filteredTable.end()) {
-		Record rec = *tableIt;
-		Record newRec;
-		it = selectPieces.begin();
-		while (it != selectPieces.end()) {
-			int index = filteredTable.getAttributeIndex(*it);
-			newRec.addValue(rec.getValue(index));
-		}
-		result.insertRecord(newRec);
-	}
-
-	return result;
-}
-*/
+//query function for database, uses the above helper functions
 Table Database::query(string select, string from, string whereName) {
 	Table fromTable, result;
 	vector<int> attrSelIndex;
@@ -437,6 +336,7 @@ Table Database::query(string select, string from, string whereName) {
 	return result;
 }
 
+//deletes records from the given table that meet the requirements in the where statement
 int Database::deleteTuple(string from, string whereName)
 {
 	Table fromTable;	
