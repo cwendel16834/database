@@ -21,7 +21,7 @@ public:
 	int addTable(string name, Table table);
 	int dropTable(string name);
 	vector<string> listTable();
-	map<string, Table>& getTables();
+	map<string, Table> getTables();
 	//Table query(string select, string from, string whereName);
 	Table query(string select, string from, string whereName);
 	int deleteTuple(string from, string whereName);

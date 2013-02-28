@@ -76,6 +76,7 @@ bool evalComparison(string value, string type, string op, string lit) {
 		else if (op == ">") return valueNum > litNum;
 		else if (op == "<=") return valueNum <= litNum;
 		else if (op == ">=") return valueNum >= litNum;
+		else throw invalid_argument("ERROR: Invalid operator parameter!");
 	}
 	else { //handle varchars and dates as strings
 
@@ -85,12 +86,15 @@ bool evalComparison(string value, string type, string op, string lit) {
 		else if (op == ">") return value > lit;
 		else if (op == "<=") return value <= lit;
 		else if (op == ">=") return value >= lit;
+		else throw invalid_argument("ERROR: Invalid operator parameter!");
 	}
 }
 
 bool evalBool(bool lhs, string op, bool rhs) {
 	if (op == "and") return lhs && rhs;
 	else if (op == "or") return lhs || rhs;
+	else
+		throw invalid_argument("ERROR: Invalid operator parameter!");
 }
 
 bool Table::checkRow(Record rec, vector<string> cond) { //checks if the Record meets requirements listed in cond
@@ -262,7 +266,7 @@ vector<string> Database::listTable()
 	return tableNames;
 }
 
-map<string, Table>& Database::getTables()
+map<string, Table> Database::getTables()
 {
 	map<string, Table> result;
 	result=tableMap;
