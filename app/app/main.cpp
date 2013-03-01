@@ -78,136 +78,140 @@ int addTableToDatabase(Database& d, string filename)
 void customerProfile(Table& t, string customerID, string info)
 {
 	int position=0;
-	customerID=customerID.substr(1);
 	cout<<endl<<customerID<<"\n"<<info<<":";
+
 	/*for each table, iterate through records and print record that has customer information*/
 	vector<Attribute>tableAttributes = t.GetAttributes();
 	for(int i=0; i<tableAttributes.size(); i++)
 	{
-		if(tableAttributes[i].name == info)
-		{
-			position=i;
-		}
+	 if(tableAttributes[i].name == info)
+	 {
+	  position=i;
+	 }
 	}
 	
 	/*get the customer's entry for the specific attribute*/
 	for(int j=0;j<t.set.size()-1;j++)
 	{
-		if(position>tableAttributes.size()) break;
-		string s=t.set[j].tuple[0];
-		if(s.compare(customerID)==0)
-		{
-		cout<<t.set[j].tuple[position]<<endl;
-		}
+	 if(position>tableAttributes.size())
+	 {
+	  break;
+	 }
+     string s=t.set[j].tuple[0];
+	 if(s.compare(customerID)==0)
+	 {
+	 cout<<t.set[j].tuple[position]<<endl;
+	 }
 	}
 }
 /*get information about a restaurants hours,payment,parking,or cuisine*/
 void restaurantProfile(Database& d, string restaurant, string info)
 {
-	/*find table with the requested data, return data result for given restaurant
-	must identify restaurant by numerical placeID*/
-	restaurant=restaurant.substr(1);
+	/*find table with the requested data,iterate through records and print
+	data result for given restaurant
+	*/
 	cout<<"restaurant ID: "<<restaurant<<endl<<info<<": \n";
 	vector<Table>dataTables=d.GetTables();
 	if(info.compare("hours")==0)
 	{
+	 for(int i=0;i<dataTables.size();i++)
+	 {
+	  if(dataTables[i].name.compare("chefmozhours")==0)
+	  {
+	   for(int j=0;j<dataTables[i].set.size();j++)
+	   {
+	    if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
+		{
+		 for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
+		 {
+		  cout<<dataTables[i].set[j].tuple[k];
+		 }
+		 cout<<endl;
+		}
+	   }
+	  }
+	 }
+	} else if(info.compare("cuisine")==0){
 	for(int i=0;i<dataTables.size();i++)
 	{
-		if(dataTables[i].name.compare("chefmozhours")==0)
+	 if(dataTables[i].name.compare("chefmozcuisine")==0)
+	 {
+	  for(int j=0;j<dataTables[i].set.size();j++)
+	  {
+	   if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
+	   {
+	    for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
 		{
-			for(int j=0;j<dataTables[i].set.size();j++)
-			{
-				if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
-				{
-					for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
-					{
-						cout<<dataTables[i].set[j].tuple[k];
-					}
-					cout<<endl;
-				}
-			}
+		 cout<<dataTables[i].set[j].tuple[k];
 		}
-	}
-	} else if(info.compare("cuisine")==0){
-		for(int i=0;i<dataTables.size();i++)
-	{
-		if(dataTables[i].name.compare("chefmozcuisine")==0)
-		{
-			for(int j=0;j<dataTables[i].set.size();j++)
-			{
-				if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
-				{
-					for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
-					{
-						cout<<dataTables[i].set[j].tuple[k];
-					}
-					cout<<endl;
-				}
-			}
-		}
+		cout<<endl;
+	   }
+	  }
+	 }
 	}
 	}else if(info.compare("parking")==0){
-		for(int i=0;i<dataTables.size();i++)
+	for(int i=0;i<dataTables.size();i++)
 	{
 	 if(dataTables[i].name.compare("chefmozparking")==0)
+	 {
+	  for(int j=0;j<dataTables[i].set.size();j++)
+	  {
+	   if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
+	   {
+		for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
 		{
-			for(int j=0;j<dataTables[i].set.size();j++)
-			{
-				if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
-				{
-					for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
-					{
-						cout<<dataTables[i].set[j].tuple[k];
-					}
-					cout<<endl;
-				}
-			}
-		}	
+		 cout<<dataTables[i].set[j].tuple[k];
+		}
+		cout<<endl;
+	   }
+	  }
+ 	 }	
 	}
 	}else if(info.compare("payment")==0){
-		for(int i=0;i<dataTables.size();i++)
+	for(int i=0;i<dataTables.size();i++)
 	{
 	 if(dataTables[i].name.compare("chefmozaccepts")==0)
+	 {
+	  for(int j=0;j<dataTables[i].set.size();j++)
+	  {
+	   if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
+	   {
+		for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
 		{
-			for(int j=0;j<dataTables[i].set.size();j++)
-			{
-				if(dataTables[i].set[j].tuple[0].compare(restaurant)==0)
-				{
-					for(int k=1;k<dataTables[i].set[j].tuple.size();k++)
-					{
-						cout<<dataTables[i].set[j].tuple[k];
-					}
-					cout<<endl;
-				}
-			}
-		}	
+		 cout<<dataTables[i].set[j].tuple[k];
+		}
+		cout<<endl;
+	   }
+	  }
+	 }	
 	}
 	} else if(info.compare("ratings")==0) {
-		for(int i=0;i<dataTables.size();i++)
+	for(int i=0;i<dataTables.size();i++)
 	{
 	 if(dataTables[i].name.compare("rating_final")==0)
-		{
-			for(int j=0;j<dataTables[i].set.size()-1;j++)
-			{
-				if(dataTables[i].set[j].tuple[1].compare(restaurant)==0)
-				{
-					cout<<dataTables[i].set[j].tuple[2]<<" ";	
-					cout<<endl;
-				}
-			}
-		}	
-	}
-	
+	 {
+	  for(int j=0;j<dataTables[i].set.size()-1;j++)
+	  {
+	   if(dataTables[i].set[j].tuple[1].compare(restaurant)==0)
+	   {
+		cout<<dataTables[i].set[j].tuple[2]<<" ";	
+		cout<<endl;
+	   }
+	  }
+	 }	
 	}
 
+	} else{
+		cout<<"invalid request"<<endl;
+	}
 	
 }
+
 /*combine the data from multiple tables using the Table class CrossJoin function*/
 void joinTables(Database& d, string table1, string table2)
 {
 	/*allow user to specify the name of new table*/
 	table1=table1.substr(1);
-	
 	string newTableName;
 	cout<<"Enter the name for the new table: ";
 	cin>>newTableName;
@@ -217,24 +221,42 @@ void joinTables(Database& d, string table1, string table2)
 	for(int i=0; i<dataTables.size(); i++)
 	{
 	  if(dataTables[i].name.compare(table1)==0)
-	  { cout<<"found first table\n";
-		for(int k=0;k<dataTables.size();k++)
-		{
-         if(dataTables[k].name.compare(table2)==0)
-         {
-			 cout<<"found second table\n";
-			  oldTable1.CrossJoin(dataTables[i],dataTables[k]);
-			 cout<<"successfully joined the tables\n";
-		 }
+	  { 
+	   cout<<"found first table\n";
+	   for(int k=0;k<dataTables.size();k++)
+	   {
+        if(dataTables[k].name.compare(table2)==0)
+        {
+		 cout<<"found second table\n";
+		 //oldTable1.CrossJoin(dataTables[i],dataTables[k]);
+		 cout<<"successfully joined the tables\n";
 		}
+	   }
 	  }
 	}
 }
-
- 
+/*helper function to find the ID of a restaurant based on it's name*/
+string findID(Database&d, string name)
+{
+	vector<Table>dataTables=d.GetTables();
+	for(int i=0;i<dataTables.size(); i++)
+	{
+	 if(dataTables[i].name.compare("geoplaces2")==0)
+	 {
+	  for(int k=0;k<dataTables[i].set.size()-1; k++)
+	  {
+	   if(dataTables[i].set[k].tuple[4].compare(name)==0)
+	   {
+		return dataTables[i].set[k].tuple[0];
+	   }
+	  }
+	 }
+	}
+	return "could not find an ID for that restaurant";
+}
 int main()
 {
-
+	/*populate the database*/
 	Database database;
 	addTableToDatabase(database, "chefmozaccepts.txt");
 	addTableToDatabase(database, "chefmozcuisine.txt");
@@ -258,8 +280,9 @@ int main()
 	  /*parse string command and determine which operation is to be performed */
 	  if(input == "QUIT" || input =="quit")
 	  {
-		break;
+	   break;
 	  }
+	  /*separate command from parameters*/
 	  int commandSubstr = input.find(':');
 	  string command=input.substr(0,commandSubstr);
 	  string params=input.substr(commandSubstr+1);
@@ -270,34 +293,34 @@ int main()
 	  parameter1 = params.substr(0,params.find('-'));
 	  parameter2 = params.substr(params.find('-')+1);
 	  }else{
-		  parameter1 = params;
-		  parameter2 = "";
+	   parameter1 = params;
+	   parameter2 = "";
 	  }
 
 	  /*carry out the appropriate operation specified by the command */
+
+	  /*will print out a specific attribute for a customer from their profile
+		 if a specific attribute isn't specified, then the function will print out 
+		 all attributes about the user from the profile*/
 	  if(command=="customer information" || command=="CUSTOMER INFORMATION")
 	  {
-		  /*will print out a specific attribute for a customer from their profile
-		  if a specific attribute isn't specified, then the function will print out 
-		  all attributes about the user from the profile*/
-		  for(int i=0;i<tables.size();i++)
-		  {
-			  if(tables[i].name=="userprofile")
-			  {
-				  customerProfile(tables[i], parameter1, parameter2);
-			  }
-
-		  }
+	   for(int i=0;i<tables.size();i++)
+		{
+		 if(tables[i].name=="userprofile")
+		 {
+		  customerProfile(tables[i], parameter1, parameter2);
+		 }
+		}
 	  }else if(command=="restaurant information" || command=="RESTAURANT INFORMATION"){
 		  /*retrieves a specific attribute for a specified restaurant. if no attribute 
 		  is specified, all attributes for the restaurant are printed*/
-		  restaurantProfile(database, parameter1, parameter2);
-		  } else if(command=="combine tables" || command=="COMBINE TABLES"){
+	   restaurantProfile(database, findID(database, parameter1), parameter2);
+	  } else if(command=="combine tables" || command=="COMBINE TABLES"){
 	       /*combine multiple tables from the database*/
-		  joinTables(database, parameter1, parameter2);
-	} else{
+	    joinTables(database, parameter1, parameter2);
+	  } else{
 		cout<<"invalid command"<<endl;
-		  }
+	  }
 
 	}
 
